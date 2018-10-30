@@ -175,4 +175,4 @@ app.post('/updatefavs',(req,res)=>{
 
 
 
-app.listen(process.env.PORT || 3001 , ()=>{console.log(`listening on ${process.env.PORT`)})
+app.listen(process.env.PORT || 3001 , ()=>{console.log(`listening on ${process.env.PORT}`)})
