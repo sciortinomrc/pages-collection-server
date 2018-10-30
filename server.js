@@ -3,15 +3,13 @@ const bodyParser= require ('body-parser');
 const FB=require('fb');
 const bcrypt= require('bcrypt-nodejs');
 const cors= require('cors');
-// const knex=require('knex')({
-//   client: 'pg',
-//   connection: {
-//     host : '127.0.0.1',
-//     user : 'postgres',
-//     password : ' ',
-//     database : 'fbpages'
-//   }
-// });
+const knex=require('knex')({
+  client: 'pg',
+  connection: {
+    host : process.env.DATABASE_URL,
+    ssl: true
+  }
+});
 const app=express();
 app.use(cors());
 app.use(bodyParser.urlencoded({extended:false}));
@@ -23,20 +21,20 @@ const ACCESS_TOKEN='EAAMyBcjmzcIBANXIEZCvuWKXI5OMwckVtzlX6B6YlxPUommBxEvmvB5OERv
 // const ACCESS_TOKEN='EAAHA0tNTMtsBAJwiixLbnjgftZBI9QcBxRvyDtisxlhODQZCxHAbsrWKl8YHAsmtjsh9zTjvgO1c3qJEaAR0KnfmTGg23hvmNFqW6eTZBxqgK8IdDfQXGDpt7SscXBkvHh3ujjatLIEpqNghYwC3SZBJSMUIbkO9JVQEgoZA2B8abo1sEz03jW1VoBs8RG8Tba99GZAXjdKwZDZD';
 const cards=[];
 const batch=[];
-// knex.select('id').from('database')
-// .then(response=>response.map(record=>{
-// 	console.log(record)
-// 	batch.push({method: 'get', relative_url: record+'?fields=id,name,fan_count,link,picture'})
-// }))
-// FB.setAccessToken(ACCESS_TOKEN);
+knex.select('id').from('database')
+.then(response=>response.map(record=>{
+	console.log(record)
+	batch.push({method: 'get', relative_url: record+'?fields=id,name,fan_count,link,picture'})
+}))
+FB.setAccessToken(ACCESS_TOKEN);
 
-// FB.api('','post',{
-// 	batch:batch},(response)=>{
-// 		response.map(page=>{
-// 			cards.push(JSON.parse(page.body))
-// 		})
-// 	}
-// )
+FB.api('','post',{
+	batch:batch},(response)=>{
+		response.map(page=>{
+			cards.push(JSON.parse(page.body))
+		})
+	}
+)
 
 const apiCall=(record)=>{
 	FB.api('/'+record.id,'get',{access_token:ACCESS_TOKEN, fields:'id,name, fan_count, link, picture'},(response)=>{
