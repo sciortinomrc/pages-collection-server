@@ -50,7 +50,7 @@ app.get('/', (req,res)=>{
 })
 //update pages DB
 app.post('/newpage',(req,res)=>{
-	const {id, category, country} = req.body;
+	const {id, category, country,username} = req.body;
 	knex('database').where({id: id})
 	.then(response=>{
 		if(response.length){
@@ -63,7 +63,7 @@ app.post('/newpage',(req,res)=>{
 				}
 				else{
 					apiCall({id});
-					knex('database').returning('*').insert({id: id, category: category, country: country, favourite:0})
+					knex('database').returning('*').insert({id: id, category: category, country: country, favourite:0, addedBy: username})
 					.then(response=>{
 						knex.select('*').from('database')
 						.then(db=>{
