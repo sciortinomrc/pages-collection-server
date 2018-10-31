@@ -27,7 +27,7 @@ console.log('Set access_token');
 FB.api('','post',{
 	batch:batch},(response)=>{
 		response.map(page=>{
-			console.log(,"page", JSON.parse(page.body))
+			console.log("page", JSON.parse(page.body))
 			cards.push(JSON.parse(page.body))
 		})
 	}
