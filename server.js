@@ -15,10 +15,6 @@ app.use(cors());
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
 
-// app
-const ACCESS_TOKEN='EAAMyBcjmzcIBANXIEZCvuWKXI5OMwckVtzlX6B6YlxPUommBxEvmvB5OERvMrtBuJ2k2cJxtxAYZC8W7utdAz91GgnG9XDxlA4dfYkcl13hFnw3BfySx3sTbHpQSSePQQe5aOk94jwl7X9AsqcBDishf13B9UZD';
-//test
-// const ACCESS_TOKEN='EAAHA0tNTMtsBAJwiixLbnjgftZBI9QcBxRvyDtisxlhODQZCxHAbsrWKl8YHAsmtjsh9zTjvgO1c3qJEaAR0KnfmTGg23hvmNFqW6eTZBxqgK8IdDfQXGDpt7SscXBkvHh3ujjatLIEpqNghYwC3SZBJSMUIbkO9JVQEgoZA2B8abo1sEz03jW1VoBs8RG8Tba99GZAXjdKwZDZD';
 const cards=[];
 const batch=[];
 knex.select('id').from('database')
@@ -26,7 +22,7 @@ knex.select('id').from('database')
 	console.log(record)
 	batch.push({method: 'get', relative_url: record+'?fields=id,name,fan_count,link,picture'})
 }))
-FB.setAccessToken(ACCESS_TOKEN);
+FB.setAccessToken(process.env.ACCESS_TOKEN);
 console.log('Set access_token');
 FB.api('','post',{
 	batch:batch},(response)=>{
@@ -38,7 +34,7 @@ FB.api('','post',{
 )
 
 const apiCall=(record)=>{
-	FB.api('/'+record.id,'get',{access_token:ACCESS_TOKEN, fields:'id,name, fan_count, link, picture'},(response)=>{
+	FB.api('/'+record.id,'get',{fields:'id,name, fan_count, link, picture'},(response)=>{
 		if(!response.error){
 			cards.push(response)
 		}
@@ -62,7 +58,7 @@ app.post('/newpage',(req,res)=>{
 			res.status(400).send("The page already exists")
 		}
 		else{
-			FB.api('/'+id,'get',{access_token:ACCESS_TOKEN, fields:'id,email'},(response)=>{
+			FB.api('/'+id,'get',{fields:'id,email'},(response)=>{
 				if(!response.error){
 					res.send({db: undefined,cards: undefined,message: 'Error - The ID you are trying to send is not a Facebook page'})
 				}
