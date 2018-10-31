@@ -21,7 +21,6 @@ knex.select('id').from('database')
 .then(response=>response.map(record=>{
 	batch.push({method: 'get', relative_url: record+'?fields=id,name,fan_count,link,picture'})
 }))
-console.log(batch)
 FB.setAccessToken(process.env.ACCESS_TOKEN);
 console.log('Set access_token');
 FB.api('','post',{
@@ -32,6 +31,7 @@ FB.api('','post',{
 		})
 	}
 )
+setTimeout(()=>{console.log(batch)},200)
 
 
 const apiCall=(record)=>{
