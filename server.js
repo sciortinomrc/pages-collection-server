@@ -63,7 +63,7 @@ app.post('/newpage',(req,res)=>{
 				}
 				else{
 					apiCall({id});
-					knex('database').returning('*').insert({id: id, category: category, country: country, favourite:0, addedBy: username})
+					knex('database').returning('*').insert({id: id, category: category, country: country, favourite:0, addedby: username})
 					.then(response=>{
 						knex.select('*').from('database')
 						.then(db=>{
