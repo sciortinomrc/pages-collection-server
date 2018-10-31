@@ -32,6 +32,7 @@ FB.api('','post',{
 		})
 	}
 )
+console.log(cards)
 
 const apiCall=(record)=>{
 	FB.api('/'+record.id,'get',{fields:'id,name, fan_count, link, picture'},(response)=>{
@@ -45,7 +46,6 @@ const apiCall=(record)=>{
 
 //get pages DB
 app.get('/', (req,res)=>{
-	console.log('ok')
 	knex.select('*').from('database')
 	.then(db=>res.send({db,cards}))
 })
