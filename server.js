@@ -18,17 +18,14 @@ app.use(bodyParser.json());
 const cards=[];
 const batch=[];
 FB.setAccessToken(process.env.ACCESS_TOKEN);
-console.log('Set access_token');
 knex.select('id').from('database')
 .then(response=>response.map(record=>{
-	console.log("filling batch array")
 	batch.push({method: 'get', relative_url: record.id+'?fields=id,name,fan_count,link,picture'})
 }))
 .then(r=>{
 	FB.api('','post',{
 		batch:batch},(response)=>{
 			response.map(page=>{
-				console.log("page", JSON.parse(page.body))
 				cards.push(JSON.parse(page.body))
 			})
 		}
