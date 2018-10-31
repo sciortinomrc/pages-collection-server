@@ -49,8 +49,8 @@ const apiCall=(record)=>{
 //get pages DB
 app.get('/', (req,res)=>{
 	console.log('ok')
-	// knex.select('*').from('database')
-	// .then(db=>res.send({db,cards}))
+	knex.select('*').from('database')
+	.then(db=>res.send({db,cards}))
 })
 //update pages DB
 app.post('/newpage',(req,res)=>{
