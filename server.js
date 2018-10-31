@@ -27,10 +27,11 @@ knex.select('id').from('database')
 	batch.push({method: 'get', relative_url: record+'?fields=id,name,fan_count,link,picture'})
 }))
 FB.setAccessToken(ACCESS_TOKEN);
-
+console.log('Set access_token');
 FB.api('','post',{
 	batch:batch},(response)=>{
 		response.map(page=>{
+			console.log(JSON.parse(page.body))
 			cards.push(JSON.parse(page.body))
 		})
 	}
