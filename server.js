@@ -19,20 +19,20 @@ const cards=[];
 const batch=[];
 knex.select('id').from('database')
 .then(response=>response.map(record=>{
-	console.log(record)
 	batch.push({method: 'get', relative_url: record+'?fields=id,name,fan_count,link,picture'})
 }))
+console.log(batch)
 FB.setAccessToken(process.env.ACCESS_TOKEN);
 console.log('Set access_token');
 FB.api('','post',{
 	batch:batch},(response)=>{
 		response.map(page=>{
-			console.log(JSON.parse(page.body))
+			console.log(,"page", JSON.parse(page.body))
 			cards.push(JSON.parse(page.body))
 		})
 	}
 )
-console.log(cards)
+
 
 const apiCall=(record)=>{
 	FB.api('/'+record.id,'get',{fields:'id,name, fan_count, link, picture'},(response)=>{
