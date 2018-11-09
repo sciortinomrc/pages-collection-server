@@ -18,6 +18,9 @@ app.use(bodyParser.json());
 const cards=[];
 const batch=[];
 FB.setAccessToken(process.env.ACCESS_TOKEN);
+FB.getLoginStatus((resp)=>{
+	console.log
+})
 knex.select('id').from('database')
 .then(response=>response.map(record=>{
 	batch.push({method: 'get', relative_url: record.id+'?fields=id,name,fan_count,link,picture'})
