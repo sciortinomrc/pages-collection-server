@@ -18,8 +18,7 @@ app.use(bodyParser.json());
 const cards=[];
 const batch=[];
 FB.setAccessToken(process.env.ACCESS_TOKEN);
-var signedRequestValue = 'signed_request_value';
-var appSecret = 'app_secret';
+
 
 
 knex.select('id').from('database')
@@ -49,8 +48,6 @@ const apiCall=(record)=>{
 
 //get pages DB
 app.get('/', (req,res)=>{
-	var signedRequest  = FB.parseSignedRequest(signedRequestValue, appSecret);
-	console.log(signedRequest)
 	knex.select('*').from('database')
 	.then(db=>res.send({db,cards}))
 })
