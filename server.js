@@ -1,7 +1,6 @@
 const express = require('express');
 const bodyParser= require ('body-parser');
 const FB=require('fb');
-const bcrypt= require('bcrypt-nodejs');
 const cors= require('cors');
 const knex=require('knex')({
   client: 'pg',
@@ -82,23 +81,17 @@ app.post('/newpage',(req,res)=>{
 })
 
 app.post('/login',(req,res)=>{
-	const {user,password}=req.body;
-	bcrypt.hash(password, null, null, function(err, hash) {
-		knex('hash').where({id: user}).select('password')
-		.then(pass=> pass[0].password)
-		.then(pwd=>{
-			bcrypt.compare(password, pwd, function(err, resp) {
-				if(resp){
-					knex('users').where({id: user}).select('*')
-					.then(data=> res.send(data[0]))
-				}
-				else{
-					res.status(400).send("Error - Username and password do not match our record")
-				}
-			});
-		})
-		.catch(err=>res.status(400).send("Error - Something went wrong. Please try again") ) 
-	});
+	const {user}=req.body;
+	knex('users').where({id: user}).select('*')
+	.then(check=> {
+		if(check.length){
+		res.status(200).send(check[0])
+		}
+		else{
+			knex('users').insert({id: user, fav: []})
+			.then(console.log)
+		}	
+	})
 })
 
 app.post('/register', (req,res)=>{
