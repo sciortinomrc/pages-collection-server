@@ -84,7 +84,7 @@ app.post('/login',(req,res)=>{
 	console.log("Reaching login endpoint.")
 	const {userId}=req.body;
 	console.log("Received response",userId)
-	knex('users').where({id: userId}).select('*')
+	knex('users').where({id: userId}).returning('*')
 	.then(check=> {
 		console.log("DB response:", check)
 		if(check.length){
