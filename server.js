@@ -92,9 +92,9 @@ app.post('/login',(req,res)=>{
 			res.status(200).send(check[0])
 		}
 		else{	
-			console.log("creating new user", check[0])
-			knex('users').insert({id: userId, fav: []})
-			res.status(200).send(check[0])
+			console.log("creating new user", userId)
+			knex('users').insert({id: userId, fav: []}).returning('*')
+			.then(newUser=>res.status(200).send(newUser[0])
 		}	
 	})
 })
