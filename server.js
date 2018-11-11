@@ -88,8 +88,8 @@ app.post('/login',(req,res)=>{
 	.then(check=> {
 		console.log("DB response:", check)
 		if(check.length){
-		console.log("user exists" check[0])
-		res.status(200).send(check[0])
+			console.log("user exists", check[0])
+			res.status(200).send(check[0])
 		}
 		else{	
 			console.log("creating new user", check[0])
