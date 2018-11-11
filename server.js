@@ -94,7 +94,7 @@ app.post('/login',(req,res)=>{
 		else{	
 			console.log("creating new user", userId)
 			knex('users').insert({id: userId, fav: []}).returning('*')
-			.then(newUser=>res.status(200).send(newUser[0])
+			.then(newUser=>res.status(200).send(newUser[0]))
 		}	
 	})
 })
