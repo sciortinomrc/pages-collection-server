@@ -83,7 +83,7 @@ app.post('/newpage',(req,res)=>{
 app.post('/login',(req,res)=>{
 	console.log("Reaching login endpoint.")
 	const {user}=req.body;
-	console.log("Received username",user)
+	console.log("Received response",req.body)
 	knex('users').where({id: user}).select('*')
 	.then(check=> {
 		console.log("DB response:", check)
