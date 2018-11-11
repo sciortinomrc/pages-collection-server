@@ -92,7 +92,7 @@ app.post('/login',(req,res)=>{
 		}
 		else{
 			knex('users').insert({id: userId, fav: []})
-			.then(console.log)
+			res.status(200).send(check[0])
 		}	
 	})
 })
