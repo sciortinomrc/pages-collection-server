@@ -81,9 +81,12 @@ app.post('/newpage',(req,res)=>{
 })
 
 app.post('/login',(req,res)=>{
+	console.log("Reaching login endpoint.")
 	const {user}=req.body;
+	console.log("Received username",user)
 	knex('users').where({id: user}).select('*')
 	.then(check=> {
+		console.log("DB response:", check)
 		if(check.length){
 		res.status(200).send(check[0])
 		}
@@ -92,23 +95,6 @@ app.post('/login',(req,res)=>{
 			.then(console.log)
 		}	
 	})
-})
-
-app.post('/register', (req,res)=>{
-	const {user,password,email}=req.body;
-	if(knex('users').where({id: user}).length){
-		res.status(400).json("Account not created");
-	}
-	else{
-		knex('users').insert({id: user, email: email, fav: []})
-		.then( response=> {
-			bcrypt.hash(password, null, null, function(err, hash) {
-				knex('hash').insert({id: user, password: hash})
-				.then(response=> res.json("Account created"))
-			});
-		})
-	}
-
 })
 
 app.post('/updatefavs',(req,res)=>{
