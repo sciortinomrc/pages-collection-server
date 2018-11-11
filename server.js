@@ -82,16 +82,16 @@ app.post('/newpage',(req,res)=>{
 
 app.post('/login',(req,res)=>{
 	console.log("Reaching login endpoint.")
-	const {user}=req.body;
-	console.log("Received response",req.body)
-	knex('users').where({id: user}).select('*')
+	const {userId}=req.body;
+	console.log("Received response",userId)
+	knex('users').where({id: userId}).select('*')
 	.then(check=> {
 		console.log("DB response:", check)
 		if(check.length){
 		res.status(200).send(check[0])
 		}
 		else{
-			knex('users').insert({id: user, fav: []})
+			knex('users').insert({id: userId, fav: []})
 			.then(console.log)
 		}	
 	})
