@@ -20,5 +20,14 @@
     "nodemon": "^1.18.4",
     "pg": "^7.5.0",
     "unirest": "^0.5.1"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sciortinomrc/pages-collection-server.git"
+  },
+  "bugs": {
+    "url": "https://github.com/sciortinomrc/pages-collection-server/issues"
+  },
+  "homepage": "https://github.com/sciortinomrc/pages-collection-server#readme"
 }
