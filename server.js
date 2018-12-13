@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser= require ('body-parser');
 const FB=require('fb');
-const cors= require('cors');
+ const cors= require('cors');
 const knex=require('knex')({
   client: 'pg',
   connection: {
@@ -60,6 +60,7 @@ app.post('/newpage',(req,res)=>{
 		}
 		else{
 			FB.api('/'+id,'get',{fields:'id,email'},(response)=>{
+				console.log(response)
 				if(!response.error){
 					res.send({db: undefined,cards: undefined,message: 'Error - The ID you are trying to send is not a Facebook page'})
 				}
@@ -152,6 +153,6 @@ app.post('/updatefavs',(req,res)=>{
 
 
 
+//process.env.PORT || 
 
-
-app.listen(process.env.PORT || 3001 , ()=>{console.log(`listening on ${process.env.PORT}`)})
+app.listen(process.env.PORT || 3000 , ()=>{console.log(`listening on ${process.env.PORT}`)})

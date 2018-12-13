@@ -11,13 +11,14 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "nodemon": "^1.18.4",
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.18.3",
     "cors": "^2.8.4",
     "express": "^4.16.4",
     "fb": "^2.0.0",
     "knex": "^0.15.2",
-    "pg": "^7.5.0"
+    "nodemon": "^1.18.4",
+    "pg": "^7.5.0",
+    "unirest": "^0.5.1"
   }
 }
