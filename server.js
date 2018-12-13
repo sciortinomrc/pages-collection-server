@@ -61,8 +61,11 @@ app.post('/newpage',(req,res)=>{
 		else{
 			FB.api('/'+id,'get',{fields:'id,email'},(response)=>{
 				console.log(response)
-				if(!response.error){
+				if(response.error){
 					res.send({db: undefined,cards: undefined,message: 'Error - The ID you are trying to send is not a Facebook page'})
+				}
+				else if(response.code==="10"){
+					res.send({db: undefined,cards: undefined,message: 'Error - Facebook has not granted the permissions to add this page yet.'})
 				}
 				else{
 					apiCall({id});
