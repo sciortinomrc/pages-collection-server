@@ -23,13 +23,13 @@ app.post('/newpage',(req,res)=>{
 	const {id, name, url, picture,  category, country,username} = req.body;
 	knex('database').where({id: id})
 	.then(response=>{
+		console.log(response)
 		if(response.length){
 			res.status(400).send("The page already exists")
 		}
 		else{
 			knex('database').returning('*').insert({id: id, name: name, url: url, picture: picture, category: category, country: country, favourite:0, addedBy: username.name})
 			.then(response=>{
-				console.log("creating record")
 				knex.select('*').from('database')
 				.then(db=>{
 					setTimeout(()=>{
