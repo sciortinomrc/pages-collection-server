@@ -1,6 +1,5 @@
 const express = require('express');
 const bodyParser= require ('body-parser');
-const FB=require('fb');
  const cors= require('cors');
 const knex=require('knex')({
   client: 'pg',
@@ -28,8 +27,9 @@ app.post('/newpage',(req,res)=>{
 			res.status(400).send("The page already exists")
 		}
 		else{
-			knex('database').returning('*').insert({id: id, name: name, url: url, picture: picture, category: category, country: country, favourite:0, addedby: username})
+			knex('database').returning('*').insert({id: id, name: name, url: url, picture: picture, category: category, country: country, favourite:0, addedBy: username.name})
 			.then(response=>{
+				console.log("creating record")
 				knex.select('*').from('database')
 				.then(db=>{
 					setTimeout(()=>{
