@@ -14,71 +14,28 @@ app.use(cors());
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
 
-const cards=[];
-const batch=[];
-FB.setAccessToken(process.env.ACCESS_TOKEN);
-
-
-
-knex.select('id').from('database')
-.then(response=>response.map(record=>{
-	batch.push({method: 'get', relative_url: record.id+'?fields=id,name,fan_count,link,picture'})
-}))
-.then(r=>{
-	FB.api('','post',{
-		batch:batch},(response)=>{
-			response.map(page=>{
-				cards.push(JSON.parse(page.body))
-			})
-		}
-	)
-})
-
-
-const apiCall=(record)=>{
-	FB.api('/'+record.id,'get',{fields:'id,name, fan_count, link, picture'},(response)=>{
-		if(!response.error){
-			cards.push(response)
-		}
-		else return "Error - Something went wrong with this ID"
-	})
-}
-
-
 //get pages DB
 app.get('/', (req,res)=>{
 	knex.select('*').from('database')
-	.then(db=>res.send({db,cards}))
+	.then(db=>res.send({db}))
 })
 //update pages DB
 app.post('/newpage',(req,res)=>{
-	const {id, category, country,username} = req.body;
+	const {id, name, url, picture,  category, country,username} = req.body;
 	knex('database').where({id: id})
 	.then(response=>{
 		if(response.length){
 			res.status(400).send("The page already exists")
 		}
 		else{
-			FB.api('/'+id,'get',{fields:'id,email'},(response)=>{
-				console.log(response)
-				if(response.error.code==="10"){
-					res.send({db: undefined,cards: undefined,message: 'Error - Facebook has not granted the permissions to add this page yet.'})
-				}
-				else if(response.error){
-					res.send({db: undefined,cards: undefined,message: 'Error - The ID you are trying to send is not a Facebook page'})
-				}
-				else{
-					apiCall({id});
-					knex('database').returning('*').insert({id: id, category: category, country: country, favourite:0, addedby: username})
-					.then(response=>{
-						knex.select('*').from('database')
-						.then(db=>{
-							setTimeout(()=>{
-								res.send({db,cards,message:"Your page has been added to our database"})
-							},500)
-						})
-					})
-				}
+			knex('database').returning('*').insert({id: id, name: name, url: url, picture: picture, category: category, country: country, favourite:0, addedby: username})
+			.then(response=>{
+				knex.select('*').from('database')
+				.then(db=>{
+					setTimeout(()=>{
+						res.send({db,message:"Your page has been added to our database"})
+					},500)
+				})
 			})
 		}	
 	})
