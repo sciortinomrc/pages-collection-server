@@ -28,7 +28,7 @@ app.post('/newpage',(req,res)=>{
 			res.status(400).send("The page already exists")
 		}
 		else{
-			knex('database').returning('*').insert({id: id, name: name, url: url, picture: picture, category: category, country: country, favourite:0, createdBy: username.name})
+			knex('database').returning('*').insert({id: id, name: name, url: url, picture: picture, category: category, country: country, favourite:0, createdby: username.name})
 			.then(response=>{
 				knex.select('*').from('database')
 				.then(db=>{
