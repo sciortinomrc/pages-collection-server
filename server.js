@@ -33,13 +33,11 @@ app.get('/', (req,res)=>{
 	try{
 		file=fs.readFileSync("./visits.json").toString();
 		file=JSON.parse(file);
-		console.log(file)
 		if(file[file.length-1].date!==date) throw true;
 		file[file.length-1].visits++;
 		jsonData=file;
 	}
 	catch(err){
-		console.log(file)
 		const newData=JSON.parse('{"date":"'+date+'", "visits":"0"}');
 		if(file)jsonData=[...file, newData];
 	}
