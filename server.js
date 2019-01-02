@@ -49,7 +49,7 @@ app.get('/', (req,res)=>{
 })
 //update pages DB
 app.post('/newpage',(req,res)=>{
-	const {id, name, url, picture,  category, country,username} = req.body;
+	const {id, name, url, picture,  category, country, createdby} = req.body;
 	knex('database').where({id: id})
 	.then(response=>{
 		console.log(response)
@@ -57,7 +57,7 @@ app.post('/newpage',(req,res)=>{
 			res.status(400).send("The page already exists")
 		}
 		else{
-			knex('database').returning('*').insert({id: id, name: name, url: url, picture: picture, category: category, country: country, favourite:0, createdby: username.name})
+			knex('database').returning('*').insert({id: id, name: name, url: url, picture: picture, category: category, country: country, favourite:0, createdby})
 			.then(response=>{
 				knex.select('*').from('database')
 				.then(db=>{
