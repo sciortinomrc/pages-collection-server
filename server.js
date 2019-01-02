@@ -22,6 +22,7 @@ let jsonData;
 try{
 	file=fs.readFileSync("./visits.json").toString();
 	file=JSON.parse(file);
+	console.log(file)
 	if(file[file.length-1].date!==date) throw true;
 	file[file.length-1].visits++;
 	jsonData=file;
@@ -36,7 +37,6 @@ fs.writeFile("./visits.json",JSON.stringify(jsonData),()=>{})
 //get visits
 app.get('/visits', (req,res)=>{
 	file=fs.readFileSync("./visits.json").toString();
-	console.log(file)
 	res.send(file)
 })
 
