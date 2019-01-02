@@ -28,6 +28,7 @@ try{
 	jsonData=file;
 }
 catch(err){
+	console.log(file)
 	const newData=JSON.parse('{"date":"'+date+'", "visits":"0"}');
 	if(file)jsonData=[...file, newData];
 }
