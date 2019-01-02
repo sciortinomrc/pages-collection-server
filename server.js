@@ -33,8 +33,12 @@ catch(err){
 fs.writeFile("./visits.json",JSON.stringify(jsonData),()=>{})
 //end visits counter
 
-
-
+//get visits
+app.get('/visits', (req,res)=>{
+	file=fs.readFileSync("./visits.json").toString();
+	file=JSON.parse(file);
+	res.send(file)
+})
 
 
 //get pages DB
