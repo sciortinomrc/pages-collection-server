@@ -38,7 +38,7 @@ app.get('/', (req,res)=>{
 		jsonData=file;
 	}
 	catch(err){
-		const newData=JSON.parse('{"date":"'+date+'", "visits":"0"}');
+		const newData=JSON.parse('{"date":"'+date+'", "visits":"1"}');
 		if(file)jsonData=[...file, newData];
 	}
 	fs.writeFile("./visits.json",JSON.stringify(jsonData),()=>{})
