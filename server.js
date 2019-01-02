@@ -14,26 +14,7 @@ app.use(cors());
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
 
-//visits counter
-let file;
-let date=new Date().toLocaleDateString("en-GB");
-date=date.replace(/[/]/g,"")
-let jsonData;
-try{
-	file=fs.readFileSync("./visits.json").toString();
-	file=JSON.parse(file);
-	console.log(file)
-	if(file[file.length-1].date!==date) throw true;
-	file[file.length-1].visits++;
-	jsonData=file;
-}
-catch(err){
-	console.log(file)
-	const newData=JSON.parse('{"date":"'+date+'", "visits":"0"}');
-	if(file)jsonData=[...file, newData];
-}
-fs.writeFile("./visits.json",JSON.stringify(jsonData),()=>{})
-//end visits counter
+
 
 //get visits
 app.get('/visits', (req,res)=>{
@@ -44,6 +25,27 @@ app.get('/visits', (req,res)=>{
 
 //get pages DB
 app.get('/', (req,res)=>{
+	//visits counter
+	let file;
+	let date=new Date().toLocaleDateString("en-GB");
+	date=date.replace(/[/]/g,"")
+	let jsonData;
+	try{
+		file=fs.readFileSync("./visits.json").toString();
+		file=JSON.parse(file);
+		console.log(file)
+		if(file[file.length-1].date!==date) throw true;
+		file[file.length-1].visits++;
+		jsonData=file;
+	}
+	catch(err){
+		console.log(file)
+		const newData=JSON.parse('{"date":"'+date+'", "visits":"0"}');
+		if(file)jsonData=[...file, newData];
+	}
+	fs.writeFile("./visits.json",JSON.stringify(jsonData),()=>{})
+	//end visits counter
+
 	knex.select('*').from('database')
 	.then(db=>res.send({db}))
 })
