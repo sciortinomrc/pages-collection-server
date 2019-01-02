@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser= require ('body-parser');
- const cors= require('cors');
- //const fs=require('fs');
+const cors= require('cors');
+const fs=require('fs');
 const knex=require('knex')({
   client: 'pg',
   connection: {
@@ -13,24 +13,25 @@ const app=express();
 app.use(cors());
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
-// //visits counter
-// let file;
-// let date=new Date().toLocaleDateString("en-GB");
-// date=date.replace(/[/]/g,"")
-// let jsonData;
-// try{
-// 	file=fs.readFileSync("./visits.json").toString();
-// 	file=JSON.parse(file);
-// 	if(file[file.length-1].date!==date) throw true;
-// 	file[file.length-1].visits++;
-// 	jsonData=file;
-// }
-// catch(err){
-// 	const newData=JSON.parse('{"date":"'+date+'", "visits":"0"}');
-// 	if(file)jsonData=[...file, newData];
-// }
-// fs.writeFile("./visits.json",JSON.stringify(jsonData),()=>{})
-// //end visits counter
+
+//visits counter
+let file;
+let date=new Date().toLocaleDateString("en-GB");
+date=date.replace(/[/]/g,"")
+let jsonData;
+try{
+	file=fs.readFileSync("./visits.json").toString();
+	file=JSON.parse(file);
+	if(file[file.length-1].date!==date) throw true;
+	file[file.length-1].visits++;
+	jsonData=file;
+}
+catch(err){
+	const newData=JSON.parse('{"date":"'+date+'", "visits":"0"}');
+	if(file)jsonData=[...file, newData];
+}
+fs.writeFile("./visits.json",JSON.stringify(jsonData),()=>{})
+//end visits counter
 
 
 
