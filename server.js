@@ -26,7 +26,7 @@ try{
 }
 catch(err){
 	const newData=JSON.parse('{"date":"'+date+'", "visits":"0"}');
-	jsonData=[...file, newData];
+	if(file)jsonData=[...file, newData];
 }
 fs.writeFile("./visits.json",JSON.stringify(jsonData),()=>{})
 //end visits counter
