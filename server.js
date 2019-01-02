@@ -12,6 +12,28 @@ const app=express();
 app.use(cors());
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
+//visits counter
+let file;
+let date=new Date().toLocaleDateString("en-GB");
+date=date.replace(/[/]/g,"")
+let jsonData;
+try{
+	file=fs.readFileSync("./visits.json").toString();
+	file=JSON.parse(file);
+	if(file[file.length-1].date!==date) throw true;
+	file[file.length-1].visits++;
+	jsonData=file;
+}
+catch(err){
+	const newData=JSON.parse('{"date":"'+date+'", "visits":"0"}');
+	jsonData=[...file, newData];
+}
+fs.writeFile("./visits.json",JSON.stringify(jsonData),()=>{})
+//end visits counter
+
+
+
+
 
 //get pages DB
 app.get('/', (req,res)=>{
