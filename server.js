@@ -36,7 +36,7 @@ fs.writeFile("./visits.json",JSON.stringify(jsonData),()=>{})
 //get visits
 app.get('/visits', (req,res)=>{
 	file=fs.readFileSync("./visits.json").toString();
-	file=JSON.parse(file);
+	file=file.json();
 	res.send(file)
 })
 
