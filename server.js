@@ -32,6 +32,7 @@ app.get('/', (req,res)=>{
 		date=date.replace(/[/]/g,"")
 		knex("visits").where({date: date}).select("*")
 		.then(response=>{
+			console.log(response)
 			if(response.length){
 				knex('visits').where({date:date}).increment('visits',1).returning('*')
 				.then(incr=>{})
