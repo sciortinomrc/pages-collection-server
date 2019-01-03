@@ -30,7 +30,7 @@ app.get('/', (req,res)=>{
 		//visits counter
 		let date=new Date().toLocaleDateString("en-GB");
 		date=date.replace(/[/]/g,"")
-		knex("visits").where({date: date})
+		knex("visits").where({date: date}).select("*")
 		.then(response=>{
 			if(response.length){
 				knex('visits').where({date:date}).increment('visits',1).returning('*')
