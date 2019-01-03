@@ -38,7 +38,7 @@ app.get('/', (req,res)=>{
 				.then(incr=>{})
 			}
 			else{
-				knex("visits").returning("*").insert({date: date, visit: 0})
+				knex("visits").returning("*").insert({date: date, visit: 1})
 				.then(sh=>{})
 			}
 		})
