@@ -1,7 +1,6 @@
 const express = require('express');
 const bodyParser= require ('body-parser');
 const cors= require('cors');
-const fs=require('fs');
 const knex=require('knex')({
   client: 'pg',
   connection: {
@@ -18,38 +17,37 @@ app.use(bodyParser.json());
 
 //get visits
 app.get('/visits', (req,res)=>{
-	file=fs.readFileSync("./visits.json").toString();
-	res.send(file)
-})
+	knex.select("*").from("visits")
+	.then(resp=>res.send(resp))
+}
 
 
 //get pages DB
 app.get('/', (req,res)=>{
-	//visits counter
-	let file;
-	let date=new Date().toLocaleDateString("en-GB");
-	date=date.replace(/[/]/g,"")
-	let jsonData;
-	try{
-		file=fs.readFileSync("./visits.json").toString();
-		file=JSON.parse(file);
-		if(file[file.length-1].date!==date) throw true;
-		file[file.length-1].visits++;
-		jsonData=file;
-	}
-	catch(err){
-		const newData=JSON.parse('{"date":"'+date+'", "visits":"1"}');
-		if(file)jsonData=[...file, newData];
-	}
-	fs.writeFile("./visits.json",JSON.stringify(jsonData),()=>{})
-	//end visits counter
-
 	knex.select('*').from('database')
 	.then(db=>res.send({db}))
+	.then(res=>{
+		//visits counter
+		let date=new Date().toLocaleDateString("en-GB");
+		date=date.replace(/[/]/g,"")
+		knex("visits").where({date: date})
+		.then(response=>{
+			if(response.length){
+				knex('visits').where({date:date}).increment('visits',1).returning('*')
+				.then(incr=>{})
+			}
+			else{
+				knex("visits").returning("*").insert({date: date, visits: 0})
+				.then(sh=>{})
+			}
+		})
+		//end visits counter
+	})
 })
 //update pages DB
 app.post('/newpage',(req,res)=>{
 	const {id, name, url, picture,  category, country, createdby} = req.body;
+	console.log(req.body)
 	knex('database').where({id: id})
 	.then(response=>{
 		console.log(response)
