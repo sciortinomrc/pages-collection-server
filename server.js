@@ -34,11 +34,11 @@ app.get('/', (req,res)=>{
 		.then(response=>{
 			console.log(response)
 			if(response.length){
-				knex('visits').where({date:date}).increment('visits',1).returning('*')
+				knex('visits').where({date:date}).increment('visit',1).returning('*')
 				.then(incr=>{})
 			}
 			else{
-				knex("visits").returning("*").insert({date: date, visits: 0})
+				knex("visits").returning("*").insert({date: date, visit: 0})
 				.then(sh=>{})
 			}
 		})
