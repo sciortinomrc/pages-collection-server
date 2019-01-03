@@ -19,7 +19,7 @@ app.use(bodyParser.json());
 app.get('/visits', (req,res)=>{
 	knex.select("*").from("visits")
 	.then(resp=>res.send(resp))
-}
+})
 
 
 //get pages DB
