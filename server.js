@@ -93,8 +93,10 @@ app.post('/delete',(req,res)=>{
 	const {pageId}=req.body;
 	console.log("Received response",pageId)
 	knex.select('*').from("users")
-	.then(user=> {
-		console.log(user)
+	.then(response=> {
+		for(let user of response){
+			if(user.fav.contains(pageId))console.log("DELETE")
+		}
 	})
 })
 //update favourites count
