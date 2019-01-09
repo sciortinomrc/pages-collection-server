@@ -68,7 +68,7 @@ app.post('/newpage',(req,res)=>{
 		}	
 	})
 })
-
+//login
 app.post('/login',(req,res)=>{
 	console.log("Reaching login endpoint.")
 	const {userId}=req.body;
@@ -87,7 +87,17 @@ app.post('/login',(req,res)=>{
 		}	
 	})
 })
-
+//delete page
+app.post('/delete',(req,res)=>{
+	console.log("Reaching login endpoint.")
+	const {pageId}=req.body;
+	console.log("Received response",pageId)
+	knex.select('*').from("users")
+	.then(user=> {
+		console.log(user.id, user.favourites)
+	})
+})
+//update favourites count
 app.post('/updatefavs',(req,res)=>{
 	const {user,id} = req.body;
 	let pagesDatabase,userToSend;
@@ -141,6 +151,6 @@ app.post('/updatefavs',(req,res)=>{
 
 
 
-//process.env.PORT || 
+
 
 app.listen(process.env.PORT || 3000 , ()=>{console.log(`listening on ${process.env.PORT}`)})
