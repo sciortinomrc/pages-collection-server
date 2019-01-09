@@ -94,7 +94,7 @@ app.post('/delete',(req,res)=>{
 	console.log("Received response",pageId)
 	knex.select('*').from("users")
 	.then(user=> {
-		console.log(user.id, user.favourites)
+		console.log(user)
 	})
 })
 //update favourites count
