@@ -95,7 +95,7 @@ app.post('/delete',(req,res)=>{
 	knex.select('*').from("users")
 	.then(response=> {
 		for(let user of response){
-			if(user.fav.contains(pageId))console.log("DELETE")
+			if(user.fav.includes(pageId))console.log("DELETE")
 		}
 	})
 })
