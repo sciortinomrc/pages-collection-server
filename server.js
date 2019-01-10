@@ -89,14 +89,33 @@ app.post('/login',(req,res)=>{
 })
 //delete page
 app.post('/delete',(req,res)=>{
-	console.log("Reaching login endpoint.")
+	console.log("Reaching login endpoint delete.")
 	const {pageId}=req.body;
 	console.log("Received response",pageId)
 	knex.select('*').from("users")
 	.then(response=> {
 		for(let user of response){
-			if(user.fav.includes(pageId))console.log("DELETE")
+			if(user.fav.includes(pageId)){
+				const favourites=user.fav;
+				const index=user.fav.indexOf(pageId)
+				favourites.splice(index,1)
+				knex("users").where({id: user.id}).update({fav: favourites})
+				.then(result=>{
+					knex("database").where({id: pageId}).del()
+					.then(final=>res.send("Page Deleted"))
+				})
+			}
 		}
+	})
+})
+//flag error within a page
+app.post('/flag',(req,res)=>{
+	console.log("Reaching login endpoint flag.")
+	const {pageId}=req.body;
+	console.log("Received response",pageId)
+	knex("database").where({id: pageId}).update({flag: true})
+	.then(response=>{
+		res.send("Page Flagged")
 	})
 })
 //update favourites count
