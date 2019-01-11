@@ -17,7 +17,7 @@ app.use(bodyParser.json());
 
 //get visits
 app.get('/visits', (req,res)=>{
-	knex.select("*").from("visits")
+	knex.select("*").from("visits").orderBy('visits','desc')
 	.then(resp=>res.send(resp))
 })
 
@@ -25,7 +25,7 @@ app.get('/visits', (req,res)=>{
 //get pages DB
 app.get('/', (req,res)=>{
 	console.log("root endpoint visited")
-	knex.select('*').from('database')
+	knex.select('*').from('database').orderBy('favourite','desc')
 	.then(db=>res.send({db}))
 	.then(res=>{
 		//visits counter
@@ -56,7 +56,7 @@ app.post('/newpage',(req,res)=>{
 			res.status(400).send("The page already exists")
 		}
 		else{
-			knex('database').returning('*').insert({id: id, name: name, url: url, picture: picture, category: category, country: country, favourite:0, createdby: flag:false})
+			knex('database').returning('*').insert({id: id, name: name, url: url, picture: picture, category: category, country: country, favourite:0, createdby, flag:false})
 			.then(response=>{
 				knex.select('*').from('database').orderBy('favourite','desc')
 				.then(db=>{
