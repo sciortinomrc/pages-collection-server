@@ -24,6 +24,7 @@ app.get('/visits', (req,res)=>{
 
 //get pages DB
 app.get('/', (req,res)=>{
+	console.log("root endpoint visited")
 	knex.select('*').from('database')
 	.then(db=>res.send({db}))
 	.then(res=>{
