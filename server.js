@@ -24,13 +24,12 @@ app.get('/visits', (req,res)=>{
 
 //get pages DB
 app.get('/', (req,res)=>{
-	knex.select('*').from('database')
+	knex.select('*').from('database').orderBy('favourite','desc')
 	.then(db=>res.send({db}))
 	.then(res=>{
 		//visits counter
-		let date=new Date().toLocaleDateString("en-GB");
-		date=date.replace(/[/]/g,"")
-		knex("visits").where({date: date}).select("*")
+		const date=new Date().toLocaleDateString("en-GB");
+		knex("visits").where({date: date}).select("*").orderBy('date','desc')
 		.then(response=>{
 			console.log(response)
 			if(response.length){
@@ -56,9 +55,9 @@ app.post('/newpage',(req,res)=>{
 			res.status(400).send("The page already exists")
 		}
 		else{
-			knex('database').returning('*').insert({id: id, name: name, url: url, picture: picture, category: category, country: country, favourite:0, createdby})
+			knex('database').returning('*').insert({id: id, name: name, url: url, picture: picture, category: category, country: country, favourite:0, createdby: flag:false})
 			.then(response=>{
-				knex.select('*').from('database')
+				knex.select('*').from('database').orderBy('favourite','desc')
 				.then(db=>{
 					setTimeout(()=>{
 						res.send({db,message:"Your page has been added to our database"})
@@ -108,7 +107,7 @@ app.post('/delete',(req,res)=>{
 		console.log("Checked every report - Ready to delete.")
 		knex("database").where({id: pageId}).del()
 		.then(final=>{
-			knex.select("*").from("database")
+			knex.select("*").from("database").orderBy('favourite','desc')
 			.then(db=>{
 				res.send(db)
 			})
