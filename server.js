@@ -94,18 +94,20 @@ app.post('/delete',(req,res)=>{
 	console.log("Received response",pageId)
 	knex.select('*').from("users")
 	.then(response=> {
+		console.log({response})
 		for(let user of response){
 			if(user.fav.includes(pageId)){
+				console.log("Page on someone's favourites")
 				const favourites=user.fav;
 				const index=user.fav.indexOf(pageId)
 				favourites.splice(index,1)
 				knex("users").where({id: user.id}).update({fav: favourites})
-				.then(result=>{
-					knex("database").where({id: pageId}).del()
-					.then(final=>res.send("Page Deleted"))
-				})
+				.then(result=>{	})
 			}
 		}
+		console.log("Checked every report - Ready to delete.")
+		knex("database").where({id: pageId}).del()
+		.then(final=>res.send("Page Deleted"))
 	})
 })
 //flag error within a page
