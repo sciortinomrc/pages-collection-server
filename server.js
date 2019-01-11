@@ -29,7 +29,7 @@ app.get('/', (req,res)=>{
 	.then(res=>{
 		//visits counter
 		const date=new Date().toLocaleDateString("en-GB");
-		knex("visits").where({date: date}).select("*").orderBy('date','desc')
+		knex("visits").where({date: date}).select("*")
 		.then(response=>{
 			console.log(response)
 			if(response.length){
