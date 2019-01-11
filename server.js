@@ -106,8 +106,8 @@ app.post('/delete',(req,res)=>{
 			}
 		}
 		console.log("Checked every report - Ready to delete.")
-		knex("database").where({id: pageId}).del()
-		.then(final=>res.send("Page Deleted"))
+		knex("database").where({id: pageId}).del().returning("*")
+		.then(final=>res.send(final))
 	})
 })
 //flag error within a page
