@@ -24,7 +24,7 @@ app.get('/visits', (req,res)=>{
 
 //get pages DB
 app.get('/', (req,res)=>{
-	knex.select('*').from('database').orderBy('favourite','desc')
+	knex.select('*').from('database')
 	.then(db=>res.send({db}))
 	.then(res=>{
 		//visits counter
