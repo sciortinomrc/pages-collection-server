@@ -13,15 +13,6 @@ app.use(cors());
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
 
-
-
-//get visits
-app.get('/visits', (req,res)=>{
-	knex.select("*").from("visits").orderBy('visits','desc')
-	.then(resp=>res.send(resp))
-})
-
-
 //get pages DB
 app.get('/', (req,res)=>{
 	console.log("root endpoint visited")
@@ -30,6 +21,7 @@ app.get('/', (req,res)=>{
 	.then(res=>{
 		//visits counter
 		const date=new Date().toLocaleDateString("en-GB");
+		console.log(date)
 		knex("visits").where({date: date}).select("*")
 		.then(response=>{
 			console.log(response)
