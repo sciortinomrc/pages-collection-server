@@ -20,7 +20,7 @@ app.get('/', (req,res)=>{
 	.then(db=>res.send({db}))
 	.then(res=>{
 		//visits counter
-		const date=new Date().toLocaleDateString("en-GB");
+		const date=new Date().toLocaleDateString("it-IT");
 		console.log(date)
 		knex("visits").where({date: date}).select("*")
 		.then(response=>{
