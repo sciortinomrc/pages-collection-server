@@ -55,7 +55,7 @@ app.get("/overview", (req,res)=>{
 		.then(database=>{
 			knex.select('*').from("visits").orderBy("date","desc")
 			.then(visits=>{
-				res.send(users,database,visits)
+				res.send({users,database,visits})
 			})
 		})
 	})
