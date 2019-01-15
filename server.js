@@ -45,6 +45,22 @@ app.get('/', (req,res)=>{
 		//end visits counter
 	})
 })
+
+//overview
+app.get("/overview", (req,res)=>{
+	console.log("Requets of overview")
+	knex.select('*').from("users")
+	.then(users=>{
+		knex.select('*').from("database")
+		.then(database=>{
+			knex.select('*').from("visits").orderBy("date","desc")
+			.then(visits=>{
+				res.send(users,database,visits)
+			})
+		})
+	})
+})
+
 //update pages DB
 app.post('/newpage',(req,res)=>{
 	const {id, name, url, picture,  category, country, createdby} = req.body;
