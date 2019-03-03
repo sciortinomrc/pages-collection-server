@@ -20,7 +20,7 @@ app.get('/', (req,res)=>{
 	.then(db=>res.send({db}))
 	.then(res=>{
 		//visits counter
-		const date=new Date().toLocaleDateString("it-IT");
+		const date=new Date().toLocaleDateString();
 		console.log(date)
 		knex("visits").where({date: date}).select("*")
 		.then(response=>{
@@ -45,8 +45,9 @@ app.get("/overview", (req,res)=>{
 	.then(users=>{
 		knex.select('*').from("database")
 		.then(database=>{
-			knex.select('*').from("visits").orderBy("date","desc")
+			knex.select('*').from("visits")
 			.then(visits=>{
+				visits.sort((a,b)=>Date.parse(b)-Date.parse(a));
 				res.send({users,database,visits})
 			})
 		})
