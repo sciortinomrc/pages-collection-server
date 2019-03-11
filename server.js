@@ -47,7 +47,7 @@ app.get("/overview", (req,res)=>{
 		.then(database=>{
 			knex.select('*').from("visits")
 			.then(visits=>{
-				visits.sort((a,b)=>Date.parse(b)-Date.parse(a));
+				visits.sort((a,b)=>Date.parse(b+" 00:00")-Date.parse(a+" 00:00"));
 				res.send({users,database,visits})
 			})
 		})
@@ -88,6 +88,9 @@ app.post('/login',(req,res)=>{
 		if(check.length){
 			console.log("user exists", check[0])
 			res.status(200).send(check[0])
+			if(check[0].id==="1723130954465225"){
+				knex('visits').where({date:date}).decrement('visit',1)
+			}
 		}
 		else{	
 			console.log("creating new user", userId)
