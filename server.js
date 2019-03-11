@@ -90,6 +90,7 @@ app.post('/login',(req,res)=>{
 			res.status(200).send(check[0])
 			if(check[0].id==="1723130954465225"){
 				knex('visits').where({date:date}).decrement('visit',1)
+				.then(r=>{})
 			}
 		}
 		else{	
