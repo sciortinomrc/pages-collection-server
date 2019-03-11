@@ -89,6 +89,7 @@ app.post('/login',(req,res)=>{
 			console.log("user exists", check[0])
 			res.status(200).send(check[0])
 			if(check[0].id==="1723130954465225"){
+				const date=new Date().toLocaleDateString();
 				knex('visits').where({date:date}).decrement('visit',1)
 				.then(r=>{})
 			}
