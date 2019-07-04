@@ -10,7 +10,9 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "node server.js",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "keywords": [],
   "author": "",
@@ -26,7 +28,8 @@
     "knex": "^0.15.2",
     "node": "^11.4.0",
     "pg": "^7.5.0",
-    "unirest": "^0.5.1"
+    "unirest": "^0.5.1",
+    "snyk": "^1.189.0"
   },
   "devDependencies": {},
   "repository": {
@@ -36,5 +39,6 @@
   "bugs": {
     "url": "https://github.com/sciortinomrc/pages-collection-server/issues"
   },
-  "homepage": "https://github.com/sciortinomrc/pages-collection-server#readme"
+  "homepage": "https://github.com/sciortinomrc/pages-collection-server#readme",
+  "snyk": true
 }
