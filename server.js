@@ -21,7 +21,7 @@ const selfCall = ()=>{
 
 //get pages DB
 app.get('/', (req,res)=>{
-	//selfCall();
+	selfCall();
 	console.log("root endpoint visited")
 	knex.select('*').from('database').orderBy('favourite','desc')
 	.then(db=>res.send({db}))
