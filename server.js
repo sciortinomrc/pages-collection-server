@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser= require ('body-parser');
 const cors= require('cors');
+const wget = require ("node-wget");
 const knex=require('knex')({
   client: 'pg',
   connection: {
@@ -13,8 +14,14 @@ app.use(cors());
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
 
+
+const selfCall = ()=>{
+	wget("https://pagesify.herokuapp.com/",()=>{setTimeout(selfCall,30000)})
+}
+
 //get pages DB
 app.get('/', (req,res)=>{
+	selfCall();
 	console.log("root endpoint visited")
 	knex.select('*').from('database').orderBy('favourite','desc')
 	.then(db=>res.send({db}))
