@@ -16,12 +16,12 @@ app.use(bodyParser.json());
 
 
 const selfCall = ()=>{
-	wget("https://pagesify.herokuapp.com/",()=>{setTimeout(selfCall,30000)})
+	wget({url: "https://pagesify.herokuapp.com/", dry: true},()=>{setTimeout(selfCall,30000)})
 }
 
 //get pages DB
 app.get('/', (req,res)=>{
-	selfCall();
+	//selfCall();
 	console.log("root endpoint visited")
 	knex.select('*').from('database').orderBy('favourite','desc')
 	.then(db=>res.send({db}))
