@@ -16,6 +16,7 @@ app.use(bodyParser.json());
 
 
 const selfCall = ()=>{
+	console.log("SELF CALL")
 	wget({url: "https://pagesify.herokuapp.com/", dry: true},()=>{setTimeout(selfCall,30000)})
 }
 
