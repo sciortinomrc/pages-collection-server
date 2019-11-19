@@ -22,8 +22,6 @@ const selfCall = ()=>{
 	wget({url: "https://pagesify.herokuapp.com", dry: true},(e,r,b)=>{setTimeout(selfCall,30000)})
 }
 
-selfCall();
-
 app.get("/wakeup",(req,res)=>{
 	selfCall();
 	res.send("I am awake")
