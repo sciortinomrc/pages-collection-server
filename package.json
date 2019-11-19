@@ -27,6 +27,7 @@
     "node": "^11.4.0",
     "node-wget": "^0.4.3",
     "pg": "^7.5.0",
+    "request": "^2.88.0",
     "unirest": "^0.5.1"
   },
   "devDependencies": {},

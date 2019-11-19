@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser= require ('body-parser');
 const cors= require('cors');
+const request = require("request");
 const wget = require ("node-wget");
 const knex=require('knex')({
   client: 'pg',
@@ -16,12 +17,18 @@ app.use(bodyParser.json());
 
 
 const selfCall = ()=>{
-	wget({url: "https://pagesify.herokuapp.com/", dry: true},()=>{setTimeout(selfCall,30000)})
+	console.log("pinging me")
+	request("https://peaceful-everglades-81846.herokuapp.com/wakeup",function(){})
+	wget({url: "https://pagesify.herokuapp.com", dry: true},(e,r,b)=>{console.log({e,r});setTimeout(selfCall,3000)})
 }
+
+app.get("/wakeup",(req,res)=>{
+	selfCall();
+	res.send("I am awake")
+})
 
 //get pages DB
 app.get('/', (req,res)=>{
-	selfCall();
 	console.log("root endpoint visited")
 	knex.select('*').from('database').orderBy('favourite','desc')
 	.then(db=>res.send({db}))
