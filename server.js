@@ -18,8 +18,8 @@ app.use(bodyParser.json());
 
 const selfCall = ()=>{
 	console.log("pinging me")
-	request("https://peaceful-everglades-81846.herokuapp.com/wakeup",function(){})
-	wget({url: "https://pagesify.herokuapp.com", dry: true},(e,r,b)=>{setTimeout(selfCall,30000)})
+	request("https://peaceful-everglades-81846.herokuapp.com/wakeup",function(){setTimeout(selfCall,30000)})
+	wget({url: "https://pagesify.herokuapp.com", dry: true},()=>{})
 }
 
 app.get("/wakeup",(req,res)=>{
