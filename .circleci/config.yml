@@ -13,8 +13,7 @@ jobs:
             - run: npm test
   meterian:
     executor:
-      machine:
-       image: ubuntu-1604-cuda-10.1:201909-23
+      name: shell
     steps:
       - get-meterian: 
         -run:
