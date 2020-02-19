@@ -16,8 +16,8 @@ jobs:
     executor:
       name: java/default
     steps:
-      - run: bash <(wget /tmp/meterian-cli.jar https://www.meterian.com/downloads/meterian-cli.jar)
-      - run: java -Denv=qa -jar /tmp/meterian-cli.jar
+      - run: bash <(wget https://www.meterian.com/downloads/meterian-cli.jar)
+      - run: java -Denv=qa -jar meterian-cli.jar
 workflows:
     build-and-test: 
       jobs:
