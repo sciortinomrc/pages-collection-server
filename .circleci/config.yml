@@ -15,10 +15,10 @@ jobs:
     executor:
       name: shell
     steps:
-      -run:
+      - run:
         name: Get meterian client
         command: bash <(wget /tmp/meterian-cli.jar https://www.meterian.com/downloads/meterian-cli.jar)
-      -run: java -Denv=qa -jar /tmp/meterian-cli.jar
+      - run: java -Denv=qa -jar /tmp/meterian-cli.jar
 workflows:
     build-and-test: 
       jobs:
