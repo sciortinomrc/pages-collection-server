@@ -9,10 +9,14 @@ jobs:
       - checkout
       - node/with-cache:
           steps:
-            - run: bash <(wget /tmp/meterian-cli.jar https://www.meterian.com/downloads/meterian-cli.jar)
-            - run: java -Denv=qa -jar /tmp/meterian-cli.jar
             - run: npm install -prod
             - run: npm test
+  meterian:
+    executor:
+      name: java/default
+    steps:
+      - run: bash <(wget /tmp/meterian-cli.jar https://www.meterian.com/downloads/meterian-cli.jar)
+      - run: java -Denv=qa -jar /tmp/meterian-cli.jar
 workflows:
     build-and-test: 
       jobs:
