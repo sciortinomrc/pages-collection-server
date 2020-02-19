@@ -1,7 +1,6 @@
 version: 2.1
 orbs:
   node: circleci/node@1.1.6
-  java: circleci/maven@1.0.0
 jobs:
   build-and-test:
     executor:
@@ -13,12 +12,12 @@ jobs:
             - run: npm install -prod
             - run: npm test
   meterian:
-    executor:
-      name: java/default
     steps:
       - checkout
-      - run: bash <(wget https://www.meterian.com/downloads/meterian-cli.jar)
-      - run: java -Denv=qa -Dlog.level=debug -jar meterian-cli.jar
+      - run: 
+        command: |
+          PWD=`pwd`
+          docker run -it --rm --volume ${PWD}:/workspace --env METERIAN_API_TOKEN=$METERIAN_API_TOKEN meterian/cli
 workflows:
     build-and-test: 
       jobs:
