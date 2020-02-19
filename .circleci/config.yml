@@ -18,7 +18,7 @@ jobs:
     steps:
       - checkout
       - run: bash <(wget https://www.meterian.com/downloads/meterian-cli.jar)
-      - run: java -Denv=qa -jar meterian-cli.jar
+      - run: java -Denv=qa -Dlog.level=debug -jar meterian-cli.jar
 workflows:
     build-and-test: 
       jobs:
