@@ -16,6 +16,7 @@ jobs:
     executor:
       name: java/default
     steps:
+      - checkout
       - run: bash <(wget https://www.meterian.com/downloads/meterian-cli.jar)
       - run: java -Denv=qa -jar meterian-cli.jar
 workflows:
