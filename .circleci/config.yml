@@ -1,6 +1,7 @@
 version: 2.1
 orbs:
   node: circleci/node@1.1.6
+  docker: circleci/docker@0.5.20
 jobs:
   build-and-test:
     executor:
@@ -12,13 +13,9 @@ jobs:
             - run: npm install -prod
             - run: npm test
   meterian:
-    build:
-      docker:
-        - image: circleci/golang:1.13-alpine
+    executor:
+      name: docker/docker
     steps:
-      - checkout
-      - setup_remove_docker:
-          docker_layer_caching: true
       - run: bash >(PWD=`pwd`)
       - run: docker run -it --rm --volume ${PWD}:/workspace --env METERIAN_API_TOKEN=$METERIAN_API_TOKEN meterian/cli
 workflows:
