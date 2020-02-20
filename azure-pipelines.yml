@@ -15,10 +15,10 @@ steps:
     versionSpec: '10.x'
   displayName: 'Install Node.js'
 - script: |
-    echo $(METERIAN_API_TOKEN)
     export METERIAN_API_TOKEN = $(METERIAN_API_TOKEN)
     wget https://www.meterian.com/downloads/meterian-cli.jar -O ~/meterian-cli.jar
     java -Dlog.level=debug -jar ~/meterian-cli.jar --interactive=false 
+  displayName: 'Run Meterian'
+- script: |
     npm install
-    npm run build
-  displayName: 'npm install and build'
+  displayName: 'npm install'
