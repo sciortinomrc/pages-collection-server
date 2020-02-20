@@ -16,7 +16,7 @@ jobs:
     executor:
       name: docker/docker
     steps:
-      - run: bash >(PWD=`pwd`)
+      - run: PWD=`pwd`
       - run: docker run -it --rm --volume ${PWD}:/workspace --env METERIAN_API_TOKEN=$METERIAN_API_TOKEN meterian/cli
 workflows:
     build-and-test: 
