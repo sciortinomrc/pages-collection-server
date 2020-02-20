@@ -16,6 +16,7 @@ jobs:
     executor:
       name: docker/docker
     steps:
+      - run: sudo setfacl --modify user:$USER:rw /var/run/docker.sock
       - run: PWD=`pwd`
       - run: sudo docker run -it --rm --volume ${PWD}:/workspace --env METERIAN_API_TOKEN=$METERIAN_API_TOKEN meterian/cli
 workflows:
