@@ -1,0 +1,23 @@
+# Node.js
+# Build a general Node.js project with npm.
+# Add steps that analyze code, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
+
+trigger:
+- master
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- task: NodeTool@0
+  inputs:
+    versionSpec: '10.x'
+  displayName: 'Install Node.js'
+- script: |
+    echo $METERIAN_API_TOKEN
+    wget https://www.meterian.com/downloads/meterian-cli.jar -O ~/meterian-cli.jar
+    java -jar ~/meterian-cli.jar
+    npm install
+    npm run build
+  displayName: 'npm install and build'
