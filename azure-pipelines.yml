@@ -17,7 +17,7 @@ steps:
 - script: |
     export METERIAN_API_TOKEN = $(METERIAN_API_TOKEN)
     wget https://www.meterian.com/downloads/meterian-cli.jar -O ~/meterian-cli.jar
-    java -Dlog.level=debug -jar ~/meterian-cli.jar --interactive=false 
+    java -jar ~/meterian-cli.jar
   displayName: 'Run Meterian'
 - script: |
     npm install
