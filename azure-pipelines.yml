@@ -15,7 +15,6 @@ steps:
     versionSpec: '10.x'
   displayName: 'Install Node.js'
 - script: |
-    export METERIAN_API_TOKEN = $(METERIAN_API_TOKEN)
     wget https://www.meterian.com/downloads/meterian-cli.jar -O ~/meterian-cli.jar
     java -jar ~/meterian-cli.jar
   displayName: 'Run Meterian'
