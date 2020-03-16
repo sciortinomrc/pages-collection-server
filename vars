@@ -1,0 +1,2 @@
+export PAGESIFY_DB_USER=root
+export PAGESIFY_DB_PASS='DevTes!0'

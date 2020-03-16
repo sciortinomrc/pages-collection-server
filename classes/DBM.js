@@ -1,18 +1,57 @@
-const knex = require("knex")
-
-const db = knex({
+const knex = require("knex")({
     client: 'mysql2',
     connection: {
-        connectionString : process.env.DATABASE_URL,
-        ssl: true
+        host: '127.0.0.1',
+        user: process.env.PAGESIFY_DB_USER,
+        password: `${process.env.PAGESIFY_DB_PASS}`,
+        database: 'pagesify'
     }
 })
 
 class DBM{
-    async get(){
-        const req = await knex.select("*").from("pages").orderBy("favourite","desc")
-        return req;
+    async all(db){
+        try{
+            if(db=="pages"){
+                const req = await knex.select("*").from(db).orderBy("favourite","desc")
+                return req;
+            }
+            const req = await knex.select("*").from(db)
+            return req;
+        }
+        catch(e){
+            throw e
+        }
+    }
+    async create(db,info){
+        try{
+           return await knex(db).insert(info)
+        }
+        catch(e){
+            throw e
+        }
+    }
+    async delete(id){
+        try{
+            await knex("pages").where({id}).del()
+            return "Record Deleted"
+        }
+        catch(e){
+            throw  e
+        }
+    }
+    async update(query,pageInfo){
+        try{
+            await knex("pages").where(query).update({...pageInfo});
+            return "Record Updated";
+        }
+        catch(e){
+            throw e
+        }
+    }
+    async get(db,field){
+        return await knex.select(db).from("users").where(field)
     }
 }
 
-module.exports = DBM
+
+module.exports = new DBM();

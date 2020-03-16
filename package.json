@@ -1,6 +1,6 @@
 {
-  "name": "backEnd",
-  "version": "1.0.0",
+  "name": "pagesify",
+  "version": "2.0.0",
   "description": "",
   "main": "server.js",
   "engines": {
@@ -25,10 +25,11 @@
     "jest": "^25.1.0",
     "jquery": "^3.3.1",
     "knex": "^0.15.2",
+    "mysql2": "^2.1.0",
     "node": "^11.4.0",
     "node-wget": "^0.4.3",
-    "pg": "^7.5.0",
     "request": "^2.88.0",
+    "shelljs": "^0.8.3",
     "unirest": "^0.5.1"
   },
   "devDependencies": {},
