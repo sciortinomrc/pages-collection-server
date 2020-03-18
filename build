@@ -6,14 +6,14 @@ if [ $? != 0 ]
 then echo TESTS HAVE FAILED; exit $?
 fi
 
-curl -s -o "/tmp/meterian-cli.jar" -z "/tmp/meterian-cli.jar" "https://www.meterian.io/downloads/meterian-cli.jar"
+curl -s -o "~/meterian-cli.jar" -z "~/meterian-cli.jar" "https://www.meterian.io/downloads/meterian-cli.jar"
 
 rm -r node_modules
 rm package-lock.json
 
 npm install -prod
 
-java -jar /tmp/meterian-cli.jar --project-url=pagesify --project-commit=$GIT_COMMIT --project-branch=$GIT_BRANCH
+java -jar ~/meterian-cli.jar --project-url=pagesify --project-commit=$GIT_COMMIT --project-branch=$GIT_BRANCH
 if [ $? != 0 ]
 then echo METERIAN SCAN HAS FAILED; exit $?
 fi 
