@@ -38,7 +38,7 @@ app.get('/api/root', async (req,res)=>{
 })
 
 //overview
-app.get("/api/overview", (req,res)=>{
+app.get("/api/overview", async(req,res)=>{
 	console.log("Requets of overview")
 
 	try{
