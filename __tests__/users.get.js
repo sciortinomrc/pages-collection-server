@@ -5,11 +5,11 @@ const users = new Users();
 test ( "I request get the users, they are returned " ,async ()=>{
 
     const id = "userid";
-    dbm.get=jest.fn().mockReturnValue(Promise.resolve([{data:["abc"]}]))
+    dbm.get=jest.fn().mockReturnValue(Promise.resolve([{data:["abc"], favourites:""}]))
 
     const result = await users.get(id);
     expect(dbm.get).toHaveBeenCalledWith("users",{id})
-    expect(result).toEqual({data:["abc"]})
+    expect(result).toEqual({data:["abc"],favourites:[]})
 })
 
 test ( "I request get the users, the connection is rejected, I get an error " ,async ()=>{

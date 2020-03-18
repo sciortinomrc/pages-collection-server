@@ -5,14 +5,14 @@ const users = new Users();
 test ( "I update the favourites of a user, the page is not a favourite, it's correctly updated" ,async ()=>{
     const info = {
         id: "userid",
-        favourites: []
+        favourites: ["page2"]
     }
     const pageId = "pageid";
 
     dbm.update=jest.fn().mockReturnValue(Promise.resolve(true))
 
     const result = await users.updateFavourites(info,pageId)
-    expect(dbm.update).toHaveBeenCalledWith("users",{id: info.id},expect.objectContaining({favourites: ["pageid"]}))
+    expect(dbm.update).toHaveBeenCalledWith("users",{id: info.id},expect.objectContaining({favourites:"page2|pageid"}))
     expect(result).toBeTruthy();
 })
 test ( "I update the favourites of a user, the page is a favourite, it's removed correctly" ,async ()=>{
@@ -25,7 +25,7 @@ test ( "I update the favourites of a user, the page is a favourite, it's removed
     dbm.update=jest.fn().mockReturnValue(Promise.resolve(true))
 
     const result = await users.updateFavourites(info,pageId)
-    expect(dbm.update).toHaveBeenCalledWith("users",{id: info.id},expect.objectContaining({favourites: []}))
+    expect(dbm.update).toHaveBeenCalledWith("users",{id: info.id},expect.objectContaining({favourites: ""}))
     expect(result).toBeTruthy();
 })
 test ( "I update the favourites count of a user, on parameter is missing, I get an error" ,async ()=>{

@@ -2,13 +2,6 @@ const express = require('express');
 const bodyParser= require ('body-parser');
 const cors= require('cors');
 
-const knex=require('knex')({
-  client: 'pg',
-  connection: {
-    connectionString : process.env.DATABASE_URL,
-    ssl: true
-  }
-});
 
 const app=express();
 app.use(cors());

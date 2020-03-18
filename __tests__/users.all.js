@@ -4,11 +4,11 @@ const users = new Users();
 
 test ( "I request all the users, they are returned " ,async ()=>{
 
-    dbm.all=jest.fn().mockReturnValue(Promise.resolve({data:["abc"]}))
+    dbm.all=jest.fn().mockReturnValue(Promise.resolve([{id:"userid",favourites:""}]))
 
     const result = await users.all()
     expect(dbm.all).toHaveBeenCalledWith("users")
-    expect(result).toEqual({data:["abc"]})
+    expect(result).toEqual([{id:"userid",favourites:[]}])
 })
 
 test ( "I request all the users, the connection is rejected, I get an error " ,async ()=>{

@@ -9,30 +9,24 @@
     "nodemon": "^1.18.4"
   },
   "scripts": {
-    "test": "jest __tests__/*.js",
+    "test": "jest",
     "start": "node server.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "ajax": "0.0.4",
-    "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.18.3",
     "cors": "^2.8.4",
     "express": "^4.16.4",
-    "fb": "^2.0.0",
-    "jest": "^25.1.0",
     "jquery": "^3.3.1",
-    "knex": "^0.15.2",
+    "knex": "^0.20.11",
     "mysql2": "^2.1.0",
-    "node": "^11.4.0",
-    "node-wget": "^0.4.3",
-    "request": "^2.88.0",
-    "shelljs": "^0.8.3",
-    "unirest": "^0.5.1"
+    "shelljs": "^0.8.3"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "jest": "^25.1.0"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/sciortinomrc/pages-collection-server.git"
