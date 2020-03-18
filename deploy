@@ -1,3 +1,5 @@
 mv ./pagesify.service /etc/systemd/system/pagesify.service
 
-sudo service pagesify start
+systemctl daemon-reload
+
+service pagesify start
