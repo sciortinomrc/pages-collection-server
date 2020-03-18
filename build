@@ -6,14 +6,14 @@ if [ $? != 0 ]
 then echo TESTS HAVE FAILED; exit $?
 fi
 
-wget -P /tmp/ https://www.meterian.com/downloads/meterian-cli.jar --no-check-certificate
+wget -qP /tmp/ https://www.meterian.com/downloads/meterian-cli.jar --no-check-certificate
 
 rm -r node_modules
 rm package-lock.json
 
 npm install -prod
 
-java -jar ~/meterian-cli.jar --project-url=pagesify --project-commit=$GIT_COMMIT --project-branch=$GIT_BRANCH
+java -jar /tmp/meterian-cli.jar --project-url=pagesify --project-commit=$GIT_COMMIT --project-branch=$GIT_BRANCH
 if [ $? != 0 ]
 then echo METERIAN SCAN HAS FAILED; exit $?
 fi 
