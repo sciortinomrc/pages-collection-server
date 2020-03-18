@@ -1,0 +1,8 @@
+cd /var/www/
+tar -xf pagesify-build.tar.gz .
+rm pagesify-build.tar.gz
+mv ./pagesify-build/* pagesify
+
+mv ./pagesify/pagesify.service /etc/systemd/system/pagesify.service
+
+sudo service pagesify start

@@ -25,4 +25,5 @@ cd pagesify-build
 rm -r pagesify-build resources build __tests__ README.md
 
 cd ..
-tar -czvf ./tmp/pagesify-build.tar.gz ./pagesify-build
+mkdir -p bin
+tar -czvf ./bin/pagesify-build.tar.gz ./pagesify-build/*
