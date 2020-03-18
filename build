@@ -6,7 +6,7 @@ if [ $? != 0 ]
 then echo TESTS HAVE FAILED; exit $?
 fi
 
-curl -s -o "/tmp/meterian-cli.jar" -z "/tmp/meterian-cli.jar" "https://www.meterian.io/downloads/meterian-cli.jar"
+wget -P /tmp/ https://www.meterian.com/downloads/meterian-cli.jar --no-check-certificate
 
 rm -r node_modules
 rm package-lock.json
