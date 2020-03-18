@@ -12,15 +12,6 @@ rm package-lock.json
 
 npm install -prod
 
-docker run --rm \
---volume ${PWD}:/workspace --env METERIAN_API_TOKEN=$METERIAN_API_TOKEN \
-meterian-cli --project-url=pagesify --project-commit=$GIT_COMMIT --project-branch=$GIT_BRANCH
-
-
-if [ $? != 0 ]
-then echo METERIAN SCAN HAS FAILED; exit $?
-fi 
-
 mkdir -p pagesify-build
 cp -r * ./pagesify-build
 cd pagesify-build 
