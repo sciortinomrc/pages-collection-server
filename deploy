@@ -1,6 +1,7 @@
 sudo service pagesify stop
+ls
 rm /etc/systemd/system/pagesify.service
-mv ./pagesify.service /etc/systemd/system/pagesify.service
+cp ./pagesify.service /etc/systemd/system/pagesify.service
 
 sudo systemctl daemon-reload
 
