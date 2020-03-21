@@ -13,10 +13,10 @@ rm package-lock.json
 npm install -prod
 METERIAN_PATH=/tmp/meterian-cli.jar
 if [ ! -f "$METERIAN_PATH" ]
-then wget http://meterian.com/downloads/meterian-cli.jar
+then wget http://meterian.com/downloads/meterian-cli.jar -O /tmp/meterian-cli.jar
 fi
 
-wget -c -N -q http://meterian.com/downloads/meterian-cli.jar
+wget -c -N -q http://meterian.com/downloads/meterian-cli.jar -O /tmp/meterian-cli.jar
 
 java -jar /tmp/meterian-cli.jar --project-url=pagesify --project-commit=$GIT_COMMIT --project-branch=$GIT_BRANCH
 if [ $? != 0 ]
