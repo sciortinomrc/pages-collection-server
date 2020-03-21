@@ -5,7 +5,7 @@ Description=pagesify server
 WantedBy=multi-user.target
 
 [Service]
-WorkingDirectory=/var/www/pagesify
+WorkingDirectory=/var/www/pagesify/server
 Environment="PORT=9876"
 Environment="PAGESIFY_DB_USER=pagesify"
 Environment="PAGESIFY_DB_PASS='EugenioCoriniEhEhOhOh'"

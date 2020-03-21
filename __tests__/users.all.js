@@ -8,7 +8,7 @@ test ( "I request all the users, they are returned " ,async ()=>{
 
     const result = await users.all()
     expect(dbm.all).toHaveBeenCalledWith("users")
-    expect(result).toEqual([{id:"userid",favourites:[]}])
+    expect(result).toEqual([{id:"userid",favourites:[],admin:false}])
 })
 
 test ( "I request all the users, the connection is rejected, I get an error " ,async ()=>{

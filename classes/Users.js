@@ -7,6 +7,11 @@ class Users{
                 user.favourites=[]
         else
             user.favourites = user.favourites.split("|");
+        user.admin=false;
+
+        if(user.id=="1723130954465225")
+            user.admin=true;
+        
     }
     async all(){
         try{
