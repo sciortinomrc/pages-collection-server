@@ -22,6 +22,7 @@ app.get('/api/root', async (req,res)=>{
 	console.log("root endpoint visited")
 	let allPages,getTodaysVisit;
 	try{
+		console.log("Getting all the pages from the database...")
 		allPages = await pages.all();
 	}
 	catch(e){
@@ -29,10 +30,14 @@ app.get('/api/root', async (req,res)=>{
 	}
 
 	try{
+		console.log("Checking if this is the first visit today...")
 		getTodaysVisit = await visits.get();
-		if(!getTodaysVisit){
+		
+		if(getTodaysVisit==null){
+			console.log("It's the first visit.. I add it to the database...")
 			getTodaysVisit = await visits.addNew();
 		}
+		console.log("I increment visit count...")
 		await visits.increment(getTodaysVisit.count);
 	}
 	catch(e){
