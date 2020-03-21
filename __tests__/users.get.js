@@ -37,5 +37,5 @@ test ( "I request get the users, the id is missing, I get an error " ,async ()=>
     catch(e){
         result = e;
     }
-    expect(result.status).toBe(400)
+    expect(result).toBeNull();
 })
