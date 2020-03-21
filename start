@@ -1,1 +1,2 @@
-npm start
+#!/bin/sh -
+npm start  >>/home/backend/pagesify/logs/application.log 2>&1
