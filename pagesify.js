@@ -20,21 +20,25 @@ const pages = new Pages(), users = new Users(), visits = new Visits();
 //get pages DB
 app.get('/api/root', async (req,res)=>{
 	console.log("root endpoint visited")
+	let allPages,getTodaysVisit;
 	try{
-		const allPages = await pages.all();
-	
-		let getTodaysVisit = await visits.get();
+		allPages = await pages.all();
+	}
+	catch(e){
+		console.log(e);
+	}
+
+	try{
+		getTodaysVisit = await visits.get();
 		if(!getTodaysVisit){
 			getTodaysVisit = await visits.addNew();
 		}
 		await visits.increment(getTodaysVisit.count);
-		res.send(JSON.stringify(allPages))
 	}
 	catch(e){
-		e.path="/api/root";
-		res.send(JSON.stringify(e));
+		console.log(e);
 	}
-	
+	res.send(JSON.stringify(allPages))
 })
 
 //overview

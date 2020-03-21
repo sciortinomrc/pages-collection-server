@@ -49,7 +49,7 @@ class DBM{
         }
     }
     async get(db,field){
-        return await knex.select(db).from("users").where(field)
+        return await knex.select("*").from(db).where(field)
     }
 }
 

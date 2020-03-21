@@ -23,7 +23,7 @@ class Visits{
     async get(){
         try{
             const visit =  await dbm.get("visits",{date: new Date().toLocaleDateString()});
-            if(!visit.length) throw {status:404, message: "Not found", location: "pagesify.visits.get"}
+            if(!visit.length) return [];
             return visit[0]
         }
         catch(e){
