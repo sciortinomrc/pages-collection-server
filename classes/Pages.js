@@ -7,6 +7,7 @@ class Pages{
             return pages;
         }
         catch(e){
+            console.log(e)
             throw {status:500, message:"Internal error", location: "pagesify.pages.all"}
         }
     }
@@ -21,6 +22,7 @@ class Pages{
         }
         catch(e){
             if(e.location) throw e
+            console.log(e)
             throw {status: 500, message: "Internal error", location:"pagesify.pages.add"};
         }
     }
@@ -32,6 +34,7 @@ class Pages{
         }
         catch(e){
             if(e.location) throw e
+            console.log(e)
             throw {status: 500, message: "Internal error", location:"pagesify.pages.remove"}
         }
     }
@@ -45,6 +48,7 @@ class Pages{
         }
         catch(e){
             if(e.location) throw e
+            console.log(e)
             throw {status: 500, message:"Internal error", location:"pagesify.pages.update"}
         }
     }
@@ -58,6 +62,7 @@ class Pages{
         }
         catch(e){
            if(e.location) throw e
+           console.log(e)
            throw {status: 500, message:"Internal error", location:"pagesify.pages.updateFavourites"}
         }
     }

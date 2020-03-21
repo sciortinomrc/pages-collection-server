@@ -7,6 +7,7 @@ class Visits{
             return createRequest[0]
         }
         catch(e){
+            console.log(e)
             throw {status:500, message:"Internal error", location: "pagesify.visits.addNew"}
         }
     }
@@ -15,6 +16,7 @@ class Visits{
             return await dbm.all("visits");
         }
         catch(e){
+            console.log(e)
             throw {status: 500, message: "Internal error", location: "pagesify.visits.all"}
         }
     }
@@ -26,6 +28,7 @@ class Visits{
         }
         catch(e){
             if(e.location) throw e
+            console.log(e)
             throw {status: 500, message: "Internal error", location: "pagesify.visits.get"}
         }
     }
@@ -37,6 +40,7 @@ class Visits{
         }
         catch(e){
             if(e.location) throw e;
+            console.log(e)
             throw {status:500, message:"Internal error", location: "pagesify.visits.increment"}
         }
     }

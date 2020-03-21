@@ -30,6 +30,7 @@ class Users{
         }
         catch(e){
             if(e.location) throw e
+            console.log(e)
             throw {status: 500, message:"Internal error", location: "pagesify.users.get"}
         }
     }
@@ -41,6 +42,7 @@ class Users{
         }
         catch(e){
             if(e.location) throw e
+            console.log(e)
             throw {status: 500, message: "Internal error", location: "pagesify.users.create"}
         }
     }
@@ -62,6 +64,7 @@ class Users{
         }
         catch(e){
            if(e.location) throw e
+           console.log(e)
            throw {status: 500, message:"Internal error", location:"pagesify.users.updateFavourites"}
         }
     }
