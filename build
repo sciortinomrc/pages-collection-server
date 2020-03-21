@@ -11,8 +11,13 @@ rm -r node_modules
 rm package-lock.json
 
 npm install -prod
+METERIAN_PATH=/tmp/meterian-cli.jar
+if [ ! -f "$METERIAN_PATH" ]
+then wget http://meterian.com/downloads/meterian-cli.jar
+fi
 
 wget -c -N -q http://meterian.com/downloads/meterian-cli.jar
+
 java -jar /tmp/meterian-cli.jar --project-url=pagesify --project-commit=$GIT_COMMIT --project-branch=$GIT_BRANCH
 if [ $? != 0 ]
 then echo METERIAN SCAN HAS FAILED; exit $?
