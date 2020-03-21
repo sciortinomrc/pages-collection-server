@@ -22,7 +22,7 @@ test ( "I request get the visit, it's not found " ,async ()=>{
     catch(e){
         result = e
     }
-    expect(result.status).toBe(404)
+    expect(result.status).toBeNull()
 })
 
 test ( "I request get the visit, it's not found " ,async ()=>{
