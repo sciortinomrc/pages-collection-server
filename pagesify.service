@@ -7,6 +7,8 @@ WantedBy=multi-user.target
 [Service]
 WorkingDirectory=/var/www/pagesify
 Environment="PORT=9876"
+Environment="PAGESIFY_DB_USER=pagesify"
+Environment="PAGESIFY_DB_PASS='D|ciassette0otto'"
 User=backend
 Group=backend
 ExecStart=/usr/bin/npm start >>/home/backend/pagesify/logs/application.log 2>&1

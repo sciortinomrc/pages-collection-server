@@ -12,7 +12,7 @@ class DBM{
     async all(db){
         try{
             if(db=="pages"){
-                const req = await knex.select("*").from(db).orderBy("favourite","desc")
+                const req = await knex.select("*").from(db).orderBy("favourites","desc")
                 return req;
             }
             const req = await knex.select("*").from(db)

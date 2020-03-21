@@ -1,2 +1,3 @@
-export PAGESIFY_DB_USER=root
-export PAGESIFY_DB_PASS='DevTes!0'
+export PAGESIFY_DB_USER=pagesify
+export PAGESIFY_DB_PASS='D|ciassette0otto'
+export PORT=9876
