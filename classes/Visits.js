@@ -34,7 +34,7 @@ class Visits{
     }
     async increment(currentCount){
         try{
-            if(!currentCount) throw {status:400, message: "The current count is missing", location: "pagesify.visits.increment"}
+            if(currentCount==null || isNaN(currentCount)) throw {status:400, message: "The current count is missing", location: "pagesify.visits.increment"}
             await dbm.update("visits",{date: new Date().toLocaleDateString(), count:currentCount+1});
             return true;
         }

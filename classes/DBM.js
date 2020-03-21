@@ -39,9 +39,9 @@ class DBM{
             throw  e
         }
     }
-    async update(query,pageInfo){
+    async update(db,query,values){
         try{
-            await knex("pages").where(query).update({...pageInfo});
+            await knex(db).where(query).update(values);
             return "Record Updated";
         }
         catch(e){
