@@ -1,0 +1,1 @@
+mv /home/backend/pagesify/logs/application.log /home/backend/pagesify/logs/application.log`date +%F`

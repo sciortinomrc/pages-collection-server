@@ -8,7 +8,7 @@ test ( "I increment the visits count, it's correctly incremented " ,async ()=>{
     dbm.update=jest.fn().mockReturnValue(Promise.resolve())
 
     const result = await visits.increment(currentCount);
-    expect(dbm.update).toHaveBeenCalledWith("visits",{date: new Date().toLocaleDateString(), count: currentCount+1})
+    expect(dbm.update).toHaveBeenCalledWith("visits",{date: new Date().toLocaleDateString()},{count: currentCount+1})
     expect(result).toBeTruthy();
 })
 
