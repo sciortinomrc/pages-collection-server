@@ -18,18 +18,9 @@ const pagesifyCore = new PagesifyCore();
 const pages = new Pages(), users = new Users(), visits = new Visits();
 
 //get pages DB
-app.get('/api/root', async (req,res)=>{
-	console.log("root endpoint visited")
-	let allPages,getTodaysVisit;
+app.post("/api/visits",async(req,res)=>{
 	try{
-		console.log("Getting all the pages from the database...")
-		allPages = await pages.all();
-	}
-	catch(e){
-		console.log(e);
-	}
-
-	try{
+		let getTodaysVisit;
 		console.log("Checking if this is the first visit today...")
 		getTodaysVisit = await visits.get();
 		
@@ -39,31 +30,28 @@ app.get('/api/root', async (req,res)=>{
 		}
 		console.log("I increment visit count...")
 		await visits.increment(getTodaysVisit.count);
+		res.send();
 	}
 	catch(e){
-		console.log(e);
+		e.path="/api/visits"
+		res.status(e.status).send(JSON.stringify(e));
 	}
-	res.send(JSON.stringify(allPages))
 })
 
-//overview
-app.get("/api/overview", async(req,res)=>{
-	console.log("Requets of overview")
-
+app.get('/api/pages', async (req,res)=>{
+	console.log("root endpoint visited")
+	let allPages;
 	try{
-		const allPages = await pages.all();
-		const allUsers = await users.all();
-		const allVisits = await visits.all();
-		res.send(JSON.strinfigy({allUsers,allPages,allVisits}));
+		console.log("Getting all the pages from the database...")
+		allPages = await pages.all();
+		res.send(JSON.stringify(allPages))
 	}
 	catch(e){
-		e.path = "/api/overview";
-		res.status(e.status).send(JSON.stringify(e))
+		e.path="/api/pages";
+		res.status(e.status).send(JSON.stringify(e));
 	}
 })
-
-//update pages DB
-app.post('/api/pages/new',async(req,res)=>{
+app.post('/api/pages',async(req,res)=>{
 	try{
 		const {pageId} = req.body
 		const pageInfo = pagesifyCore.pageInfo(pageId);
@@ -71,39 +59,11 @@ app.post('/api/pages/new',async(req,res)=>{
 		res.send("Ok")
 	}
 	catch(e){
-		e.path="/api/pages/new";
+		e.path="/api/pages";
 		res.status(e.status).send(JSON.stringify(e));
 	}
 })
-
-//login
-app.get("/api/users/:userid",async(req,res)=>{
-	const {userid} = req.params;
-	try{
-		const user = await users.get(userid);
-		res.send(JSON.strinfigy(user));
-	}
-	catch(e){
-		e.path="/api/users/:userid";
-		res.status(e.status).send(JSON.stringify(e));
-	}
-})
-
-app.post('/api/users/new',async(req,res)=>{
-	try{
-		const {userId}=req.body;
-		console.log("Received response",userId)
-		await users.create(userId);
-		const user = await users.get(userId);
-		res.send(JSON.stringify(user));
-	}
-	catch(e){
-		e.path="/api/users/new";
-		res.status(e.status).send(JSON.stringify(e));
-	}
-})
-
-app.post('/api/pages/delete/:pageId',async(req,res)=>{
+app.delete('/api/pages/:pageId/delete',async(req,res)=>{
 	try{
 		const {pageId} = req.params;
 		const allUsers = await users.all();
@@ -114,12 +74,12 @@ app.post('/api/pages/delete/:pageId',async(req,res)=>{
 		res.send("Ok")
 	}
 	catch(e){
-		e.path="/api/pages/delete/:pageId";
+		e.path="/api/pages/:pageId/delete";
 		res.status(e.status).send(JSON.stringify(e))
 	}
 })
 
-app.post("/api/pages/:pageId/updateFavourites",async(req,res)=>{
+app.put("/api/pages/:pageId/favourites/update",async(req,res)=>{
 	try{
 		const {pageId} = req.params;
 		const {add,current} = req.query;
@@ -129,10 +89,60 @@ app.post("/api/pages/:pageId/updateFavourites",async(req,res)=>{
 		res.send("Ok");
 	}
 	catch(e){
-		e.path="/api/pages/:oageId/updateFavourites";
-		res.status(e.status).send(JSON.strinfigy(e))
+		e.path="/api/pages/:pageId/favourites/update";
+		res.status(e.status).send(JSON.stringify(e))
 	}
 })
+
+app.post('/api/users',async(req,res)=>{
+	try{
+		const {userId}=req.body;
+		console.log("Received response",userId)
+		await users.create(userId);
+		const user = await users.get(userId);
+		res.send(JSON.stringify(user));
+	}
+	catch(e){
+		e.path="/api/users";
+		res.status(e.status).send(JSON.stringify(e));
+	}
+})
+
+app.get("/api/users/:userid",async(req,res)=>{
+	const {userid} = req.params;
+	try{
+		const user = await users.get(userid);
+		res.send(JSON.stringify(user));
+	}
+	catch(e){
+		e.path="/api/users/:userid";
+		res.status(e.status).send(JSON.stringify(e));
+	}
+})
+app.put("/api/users/:userid/favourites/update",async(req,res)=>{
+	const {pageId,userInfo} = req.body;
+	try{
+		await users.updateFavourites(userInfo,pageId);
+		res.send()
+	}
+	catch(e){
+		e.path="/api/users/:userid/favourites/update";
+		res.status(e.status).send(JSON.stringify(e));
+	}
+})
+
+app.get("/api/visits",async(req,res)=>{
+	try{
+		const allVisits = await visits.all();
+		res.send(JSON.stringify(allVisits));
+	}
+	catch(e){
+		e.path="/api/visits";
+		res.status(e.status).send(JSON.stringify(e));
+	}
+})
+
+
 
 
 app.listen(process.env.PORT || 3000 , ()=>{console.log(`listening on ${process.env.PORT}`)})
