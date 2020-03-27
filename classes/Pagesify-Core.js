@@ -2,30 +2,40 @@ const sh = require("shelljs");
 
 class PagesifyCore{
     getPage(id){
-        let html = sh.exec("curl https://www.facebook.com/"+id).stdout;
+        let html = sh.exec("curl https://m.facebook.com/pg/"+id+"/community/").stdout;
         return html;
     }
     getName(html){
-        let fraction = html.split("www.facebook.com")[2];
-        fraction = fraction.split("title")[1].split("/")[0];
-        const name = fraction.replace(/"/g,"").replace(/=/g,"").trim();
+        let name = html.split("<title>")[1]
+            .split("</title>")[0]
+            .split("|")[0]
+            .trim();
         return name;
     }
+    getCategory(html){
+        const category = html.split('id="cover"')[1]
+            .split("</h1>")[1]
+            .split("<span")[1]
+            .split("</span")[0]
+            .split(">")[1];
+        return category;
+    }
     getLikes(html){
-        let fraction = html.split("/likes")[2];
-        let likes = fraction.split(">")[3].split("<")[0];
+        let likes = html.split('id="pages_msite_body_contents"')
+        .split("<td>")[1]
+        .split("</td>")[0]
+        .split("</div>")[0]
+        .split(">")[1];
         likes = likes.replace(",","").replace(" ","");
         return likes*1;
-    }
-    getCategory(html){
-        const category = html.split("/pages/category/")[1].split("<")[0].split(">")[1]
-        return category;
     }
     pageInfo(id){
         const pageRaw = this.getPage(id);
         const name = this.getName(pageRaw);
         const likes = this.getLikes(pageRaw);
         const type = this.getCategory(pageRaw);
+
+        console.log({name,likes,type})
 
         return {name,likes,type};
     }
