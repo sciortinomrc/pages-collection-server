@@ -94,9 +94,9 @@ app.put("/api/pages/:pageId/favourites/update",async(req,res)=>{
 	}
 })
 
-app.post('/api/users',async(req,res)=>{
+app.post('/api/users/:id',async(req,res)=>{
 	try{
-		const {userId}=req.body;
+		const {id}=req.params;
 		console.log("Received response",userId)
 		await users.create(userId);
 		const user = await users.get(userId);

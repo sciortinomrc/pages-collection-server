@@ -30,6 +30,7 @@ class Users{
         try{
             if(!id) throw {status:400, message: "The id is missing", location: "pagesify.users.get"}
             const user = await dbm.get("users",{id});
+            if(!user.length) throw {status:404, message:"User not found", location: "pagesify.users.get"}
             this.handleFavourites(user[0]);
             return user[0]
         }
