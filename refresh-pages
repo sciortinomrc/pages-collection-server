@@ -1,0 +1,1 @@
+curl pagesify.mrcdev.co.uk/api/admin/pages/refresh -X POST

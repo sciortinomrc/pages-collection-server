@@ -33,13 +33,14 @@ app.post("/api/visits",async(req,res)=>{
 		res.send();
 	}
 	catch(e){
+		console.log(e)
 		e.path="/api/visits"
 		res.status(e.status).send(JSON.stringify(e));
 	}
 })
 
 app.get('/api/pages', async (req,res)=>{
-	console.log("root endpoint visited")
+	console.log("Pages list request")
 	let allPages;
 	try{
 		console.log("Getting all the pages from the database...")
@@ -47,20 +48,39 @@ app.get('/api/pages', async (req,res)=>{
 		res.send(JSON.stringify(allPages))
 	}
 	catch(e){
+		console.log(e)
 		e.path="/api/pages";
 		res.status(e.status).send(JSON.stringify(e));
 	}
 })
 app.post('/api/pages',async(req,res)=>{
+	console.log("Request of new page");
+	const {id} = req.body
 	try{
-		const {pageId} = req.body
-		const pageInfo = pagesifyCore.pageInfo(pageId);
-		await pages.add(req.body);
+		console.log("Scraping facebook page...");
+		const pageInfo = pagesifyCore.pageInfo(id);
+		console.log("Creating page record on DB");
+		await pages.add({...req.body,...pageInfo});
 		res.send("Ok")
 	}
 	catch(e){
 		e.path="/api/pages";
 		res.status(e.status).send(JSON.stringify(e));
+	}
+})
+app.post('/api/admin/pages/refresh',(req,res)=>{
+	console.log("About to refresh all pages info");
+	const allPages = await pages.all();
+	try{
+		for(const current of allPages){
+			const pageInfo = pagesifyCore.pageInfo(current.id);
+			await pages.update(...current,...pageInfo);
+		}
+		res.send();
+	}
+	catch(e){
+		console.log(e);
+		res.status(e.status).send();
 	}
 })
 app.delete('/api/pages/:pageId/delete',async(req,res)=>{
@@ -94,9 +114,9 @@ app.put("/api/pages/:pageId/favourites/update",async(req,res)=>{
 	}
 })
 
-app.post('/api/users/:id',async(req,res)=>{
+app.post('/api/users/:userId',async(req,res)=>{
 	try{
-		const {id}=req.params;
+		const {userId}=req.params;
 		console.log("Received response",userId)
 		await users.create(userId);
 		const user = await users.get(userId);
