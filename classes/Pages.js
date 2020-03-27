@@ -13,8 +13,8 @@ class Pages{
     }
     async add(pageInfo){
         try{
-            const {id,name,url,type,likes,country,category,addedBy} = pageInfo;
-            if(!id || !name || !url || !type || !likes || !country || !category || !addedBy)
+            const {id,name,url,type,likes,country,category,createdby} = pageInfo;
+            if(!id || !name || !url || !type || !likes || !country || !category || !createdby)
                 throw {status: 400, message: "One of the parameters requested is missing", location: "pagesify.pages.add"};
             await dbm.create("pages",{...pageInfo,favourites: 0});
             return true;
