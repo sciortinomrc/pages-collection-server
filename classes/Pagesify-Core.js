@@ -8,7 +8,7 @@ class PagesifyCore{
     getName(html){
         let name = html.split("<title>")[1]
             .split("</title>")[0]
-            .split("|")[0]
+            .split("-")[0]
             .trim();
         return name;
     }
@@ -21,11 +21,12 @@ class PagesifyCore{
         return category;
     }
     getLikes(html){
+        console.log(html.includes('id="pages_msite_body_contents"'))
         let likes = html.split('id="pages_msite_body_contents"')[1]
-        .split("<td>")[1]
-        .split("</td>")[0]
-        .split("</div>")[0]
-        .split(">")[1];
+            .split("<td")[1]
+            .split("</td>")[0]
+            .split("</div>")[0]
+            .split(">")[2];
         likes = likes.replace(",","").replace(" ","");
         return likes*1;
     }

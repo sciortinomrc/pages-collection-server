@@ -14,7 +14,7 @@ test ( "I request vespucciakabaudo and the get the correct results ", async()=>{
 
     expect(pageInfo.name).toEqual("Amerigo Vespucci: il Pippo Baudo della nautica");
     console.log({name: pageInfo.name});
-    expect(pageInfo.likes).toBe(1540);
+    expect(pageInfo.likes).toBe(1561);
     console.log({likes: pageInfo.likes});
     expect(pageInfo.type).toEqual("Arcade");
     console.log({type: pageInfo.type})
@@ -29,7 +29,7 @@ test ( "I request vespucciakabaudo and the get the correct results ", async()=>{
 
     expect(pageInfo.name).toEqual("Il Diario di Pippo Frank");
     console.log({name: pageInfo.name});
-    expect(pageInfo.likes).toBe(16287);
+    expect(pageInfo.likes).toBe(16511);
     console.log({likes: pageInfo.likes});
     expect(pageInfo.type).toEqual("Interest");
     console.log({type: pageInfo.type})
