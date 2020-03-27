@@ -21,7 +21,7 @@ class PagesifyCore{
         return category;
     }
     getLikes(html){
-        let likes = html.split('id="pages_msite_body_contents"')
+        let likes = html.split('id="pages_msite_body_contents"')[1]
         .split("<td>")[1]
         .split("</td>")[0]
         .split("</div>")[0]
