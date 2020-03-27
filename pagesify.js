@@ -68,7 +68,7 @@ app.post('/api/pages',async(req,res)=>{
 		res.status(e.status).send(JSON.stringify(e));
 	}
 })
-app.post('/api/admin/pages/refresh',(req,res)=>{
+app.post('/api/admin/pages/refresh',async(req,res)=>{
 	console.log("About to refresh all pages info");
 	const allPages = await pages.all();
 	try{
