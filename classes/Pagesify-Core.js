@@ -9,6 +9,7 @@ class PagesifyCore{
         let name = html.split("<title>")[1]
             .split("</title>")[0]
             .split("-")[0]
+            .replace("&#039;","'")
             .trim();
         return name;
     }
@@ -21,7 +22,6 @@ class PagesifyCore{
         return category;
     }
     getLikes(html){
-        console.log(html.includes('id="pages_msite_body_contents"'))
         let likes = html.split('id="pages_msite_body_contents"')[1]
             .split("<td")[1]
             .split("</td>")[0]
@@ -30,15 +30,26 @@ class PagesifyCore{
         likes = likes.replace(",","").replace(" ","");
         return likes*1;
     }
+    processId(id){
+        if(id.includes("https://www.facebook.com")){
+            const idSplit = id.split("/");
+            if(idSplit[idSplit.length-1]=="") idSplit.pop();
+            id=idSplit[idSplit.length-1];
+        }
+        const idSplit = id.split("-");
+        const last = idSplit[idSplit.length-1];
+        if(last.length>6 && !isNaN(1*last))
+            return last
+        return id;
+    }
     pageInfo(id){
+        id = this.processId(id)
         const pageRaw = this.getPage(id);
         const name = this.getName(pageRaw);
         const likes = this.getLikes(pageRaw);
         const type = this.getCategory(pageRaw);
 
-        console.log({name,likes,type})
-
-        return {name,likes,type};
+        return {id,name,likes,type};
     }
 }
 
