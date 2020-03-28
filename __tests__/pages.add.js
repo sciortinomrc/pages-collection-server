@@ -11,7 +11,7 @@ test ( "I add a page, it's added correctly " ,async ()=>{
         type: "pagetype",
         country: "pagecountry",
         likes : "pagelikes",
-        addedBy: "userid"
+        createdby: "userid"
     }
 
     dbm.create=jest.fn().mockReturnValue(Promise.resolve(true))
@@ -53,7 +53,7 @@ test ( "I add a page, connection is rejected, I receive an error " ,async ()=>{
         type: "pagetype",
         country: "pagecountry",
         likes : "pagelikes",
-        addedBy: "userid"
+        createdby: "userid"
     }
 
     dbm.create=jest.fn().mockReturnValue(Promise.reject(new Error()))
