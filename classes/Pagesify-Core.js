@@ -31,10 +31,10 @@ class PagesifyCore{
         return likes*1;
     }
     processId(id){
-        if(id.includes("https://www.facebook.com")){
+        if(id.includes("facebook.com/")){
             const idSplit = id.split("/");
             if(idSplit[idSplit.length-1]=="") idSplit.pop();
-            id=idSplit[idSplit.length-1];
+            id=idSplit[idSplit.length-1]
         }
         const idSplit = id.split("-");
         const last = idSplit[idSplit.length-1];
@@ -43,7 +43,7 @@ class PagesifyCore{
         return id;
     }
     pageInfo(id){
-        id = this.processId(id)
+        id = this.processId(id);
         const pageRaw = this.getPage(id);
         const name = this.getName(pageRaw);
         const likes = this.getLikes(pageRaw);
