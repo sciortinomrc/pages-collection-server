@@ -12,6 +12,7 @@ class Pages{
         }
     }
     async add(pageInfo){
+        console.log({pageInfo})
         try{
             const {id,name,url,type,likes,country,category,createdby} = pageInfo;
             if(!id || !name || !url || !type || !likes || !country || !category || !createdby)
