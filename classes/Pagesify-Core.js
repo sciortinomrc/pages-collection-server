@@ -2,7 +2,7 @@ const sh = require("shelljs");
 
 class PagesifyCore{
     getPage(id){
-        let html = sh.exec("curl https://m.facebook.com/"+id+"/community/").stdout;
+        let html = sh.exec("curl https://m.facebook.com/"+id+"/community/",{silent: true}).stdout;
         return html;
     }
     getName(html){

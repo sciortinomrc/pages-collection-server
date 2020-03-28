@@ -40,8 +40,8 @@ class Pages{
     }
     async update(pageInfo){
         try{
-            const {id,name,url,type,likes,country,category,addedBy} = pageInfo;
-            if(!id || !name || !url || !type || !likes || !country || !category || !addedBy)
+            const {id,name,url,type,likes,country,category,createdby} = pageInfo;
+            if(!id || !name || !url || !type || !likes || !country || !category || !createdby)
                 throw {status: 400, message: "One of the parameters requested is missing", location: "pagesify.pages.update"};
             await dbm.update("pages",{id: pageInfo.id},pageInfo);
             return true;

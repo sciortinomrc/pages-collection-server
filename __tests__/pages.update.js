@@ -11,7 +11,7 @@ test ( "I update a page, it's correctly updated" ,async ()=>{
         type: "pagetype",
         country: "pagecountry",
         likes : "pagelikes",
-        addedBy: "userid"
+        createdby: "userid"
     }
 
     dbm.update=jest.fn().mockReturnValue(Promise.resolve(true));
@@ -29,7 +29,7 @@ test ( "I update a page, a parameter is missing, I get an error " ,async ()=>{
         type: "pagetype",
         country: "pagecountry",
         likes : "pagelikes",
-        addedBy: "userid"
+        createdby: "userid"
     }
 
     dbm.update=jest.fn().mockReturnValue(Promise.resolve(true))
@@ -52,7 +52,7 @@ test ( "I update a page, the connection is rejected, I get an error " ,async ()=
         type: "pagetype",
         country: "pagecountry",
         likes : "pagelikes",
-        addedBy: "userid"
+        createdby: "userid"
     }
 
     dbm.update=jest.fn().mockReturnValue(Promise.reject(new Error()))
