@@ -115,6 +115,18 @@ app.put("/api/pages/:pageId/favourites/update",async(req,res)=>{
 	}
 })
 
+app.get("/api/users",async(req,res)=>{
+	try{
+		console.log("Getting all users");
+		const usersAll = await users.all();
+		res.send(JSON.stringify(usersAll));
+	}
+	catch(e){
+		e.path="/api/users"
+		res.status(e.status).send(JSON.stringify(e))
+	}
+})
+
 app.post('/api/users/:userId',async(req,res)=>{
 	try{
 		const {userId}=req.params;
@@ -124,7 +136,7 @@ app.post('/api/users/:userId',async(req,res)=>{
 		res.send(JSON.stringify(user));
 	}
 	catch(e){
-		e.path="/api/users";
+		e.path="/api/users/:userid";
 		res.status(e.status).send(JSON.stringify(e));
 	}
 })
