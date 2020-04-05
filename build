@@ -11,7 +11,6 @@ fi
 rm -r node_modules
 rm package-lock.json
 
-npm install --production
 
 mkdir -p ~/meterian
 
@@ -28,6 +27,11 @@ java -jar $METERIAN_PATH --project-url=pagesify --project-commit=$GIT_COMMIT --p
 if [ $? != 0 ]
 then echo METERIAN SCAN HAS FAILED; echo $?; exit 1
 fi 
+
+rm -rf node_modules
+rm -f package-lock.json
+
+npm install --production
 
 mkdir -p pagesify-build
 cp -r * ./pagesify-build

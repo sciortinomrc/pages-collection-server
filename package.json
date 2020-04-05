@@ -1,37 +1,32 @@
 {
   "name": "pagesify",
   "version": "2.0.0",
-  "description": "",
+  "description": "Facebook pages showcase",
   "main": "pagesify.js",
-  "engines": {
-    "npm": "6.5.0",
-    "node": "^11.4.0",
-    "nodemon": "^1.18.4"
-  },
   "scripts": {
     "test": "jest",
     "start": "node pagesify.js>>/home/backend/pagesify/logs/application.log"
+    
   },
-  "keywords": [],
-  "author": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sciortinomrc/pages-collection-server.git"
+  },
+  "author": "Marco Sciortino",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sciortinomrc/pages-collection-server/issues"
+  },
+  "homepage": "https://github.com/sciortinomrc/pages-collection-server#readme",
   "dependencies": {
-    "body-parser": "^1.18.3",
-    "cors": "^2.8.4",
-    "express": "^4.16.4",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
     "knex": "^0.20.13",
     "mysql2": "^2.1.0",
     "shelljs": "^0.8.3"
   },
   "devDependencies": {
     "jest": "^25.2.7"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/sciortinomrc/pages-collection-server.git"
-  },
-  "bugs": {
-    "url": "https://github.com/sciortinomrc/pages-collection-server/issues"
-  },
-  "homepage": "https://github.com/sciortinomrc/pages-collection-server#readme"
+  }
 }
