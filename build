@@ -11,7 +11,7 @@ fi
 rm -r node_modules
 rm package-lock.json
 
-npm install -prod
+npm install --production
 
 mkdir -p ~/meterian
 
