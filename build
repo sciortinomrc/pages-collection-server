@@ -21,7 +21,9 @@ fi
 
 wget -c -N -q http://meterian.com/downloads/meterian-cli.jar -O $METERIAN_PATH
 
-java -jar $METERIAN_PATH --project-url=pagesify --project-commit=$GIT_COMMIT --project-branch=(${GIT_BRANCH//\//})
+BRANCH=(${GIT_BRANCH//\//})
+
+java -jar $METERIAN_PATH --project-url=pagesify --project-commit=$GIT_COMMIT --project-branch=$BRANCH
 if [ $? != 0 ]
 then echo METERIAN SCAN HAS FAILED; echo $?; exit 1
 fi 
