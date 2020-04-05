@@ -105,7 +105,7 @@ app.put("/api/pages/:pageId/favourites/update",async(req,res)=>{
 		const {pageId} = req.params;
 		const {add,current} = req.query;
 		if(!current || !add) throw {status: 400, message:"Some parameters are missing", location: "pagesify"}
-		const page = { id: pageId, favourites: add?current+1:current-1};
+		const page = { id: pageId, favourites: add?current*1+1:current*1-1};
 		await pages.updateFavourites(page);
 		res.send("Ok");
 	}
