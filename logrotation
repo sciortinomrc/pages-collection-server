@@ -1,1 +1,3 @@
-mv /home/backend/pagesify/logs/application.log /home/backend/pagesify/logs/application.log`date +%F`
+mv /home/backend/pagesify/logs/application.log /home/backend/pagesify/logs/application.`date +%F`.log
+
+sudo service pagesify restart
