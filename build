@@ -22,7 +22,7 @@ fi
 
 wget -c -N -q http://meterian.com/downloads/meterian-cli.jar -O $METERIAN_PATH
 
-BRANCH=(${GIT_BRANCH//\//})
+BRANCH=(${GIT_BRANCH//*\//})
 
 java -jar $METERIAN_PATH --project-url=pagesify --project-commit=$GIT_COMMIT --project-branch=$BRANCH
 if [ $? != 0 ]
