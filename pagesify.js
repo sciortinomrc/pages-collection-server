@@ -26,7 +26,8 @@ app.post("/api/visits",async(req,res)=>{
 		
 		if(getTodaysVisit==null){
 			console.log("It's the first visit.. I add it to the database...")
-			getTodaysVisit = await visits.addNew();
+			await visits.addNew();
+			getTodaysVisit = {count:0};
 		}
 		console.log("I increment visit count...")
 		await visits.increment(getTodaysVisit.count);

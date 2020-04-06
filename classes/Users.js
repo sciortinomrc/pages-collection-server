@@ -65,7 +65,6 @@ class Users{
                 userInfo.favourites.push(pageId);
             }
             userInfo.favourites=userInfo.favourites.join("|");
-            userInfo={id: userInfo.id, favourites: userInfo.favourites};
             await dbm.update("users",{id: userInfo.id},userInfo);
             return true
         }
