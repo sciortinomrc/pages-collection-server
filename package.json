@@ -6,7 +6,6 @@
   "scripts": {
     "test": "jest",
     "start": "node pagesify.js>>/home/backend/pagesify/logs/application.log"
-    
   },
   "repository": {
     "type": "git",
