@@ -55,8 +55,8 @@ class Pages{
     async updateFavourites(pageInfo){
         try{
             const {id,favourites} = pageInfo;
-            if(!id || !favourites)
-                throw {status: 400, message:"One of the parameters requested is missing", location: "pagesify.pages.updateFavourites"};
+            if(!id || isNaN(favourites) || favourites<0)
+                throw {status: 400, message:"One of the parameters requested is invalid or missing", location: "pagesify.pages.updateFavourites"};
             await dbm.update("pages",{id: pageInfo.id},pageInfo);
             return true
         }
