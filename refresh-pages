@@ -1,1 +1,1 @@
-curl pagesify.mrcdev.co.uk/api/admin/pages/refresh -X POST
+curl -X POST localhost:9876/api/admin/pages/refresh
