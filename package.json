@@ -18,7 +18,6 @@
   "dependencies": {
     "express": "^4.16.4",
     "fb": "^2.0.0",
-    "jest": "^25.5.4",
     "knex": "^0.15.2"
   },
   "devDependencies": {},
