@@ -19,9 +19,9 @@
     "express": "^4.16.4",
     "fb": "^2.0.0",
     "jest": "^25.1.0",
-    "jquery": "^1.9.1",
+    "jquery": "^1.12.4",
     "knex": "^0.15.2"
-    },
+  },
   "devDependencies": {},
   "repository": {
     "type": "git",
