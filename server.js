@@ -10,6 +10,7 @@ const knex=require('knex')({
     ssl: true
   }
 });
+
 const app=express();
 app.use(cors());
 app.use(bodyParser.urlencoded({extended:false}));
