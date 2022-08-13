@@ -74,9 +74,13 @@ app.post('/api/admin/pages/refresh',async(req,res)=>{
 	const allPages = await pages.all();
 	try{
 		for(const current of allPages){
-			console.l
-			const pageInfo = pagesifyCore.pageInfo(current.id);
-			await pages.update({...current,...pageInfo});
+			try{
+				const pageInfo = pagesifyCore.pageInfo(current.id);
+				await pages.update({...current,...pageInfo});
+			}
+			catch(e){
+				continue
+			}
 		}
 		res.send();
 	}

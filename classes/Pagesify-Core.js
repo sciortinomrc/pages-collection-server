@@ -12,6 +12,7 @@ class PagesifyCore{
 
     getPage(id){
         let html = sh.exec("curl https://m.facebook.com/"+id+"/community/",{silent: true}).stdout;
+        if(!html.trim().length) return null
         return html;
     }
     getName(html){
@@ -28,10 +29,15 @@ class PagesifyCore{
         return category;
     }
     getLikes(html){
-        const $ = this.getDom(html)
-        let likes = $("#pages_msite_body_contents td div").html()
-        likes = likes.replace(",","").replace(" ","");
-        return likes*1;
+        try{
+            const $ = this.getDom(html)
+            let likes = $("#pages_msite_body_contents td div").html()
+            likes = likes.replace(",","").replace(" ","");
+            return likes*1;
+        }
+        catch(e){
+            return 0
+        }
     }
     processId(id){
         if(id.includes("facebook.com/")){
@@ -46,8 +52,10 @@ class PagesifyCore{
         return id;
     }
     pageInfo(id){
+        console.log("Ingesting page "+id)
         id = this.processId(id);
         const pageRaw = this.getPage(id);
+        if(!pageRaw) return null
         const name = this.getName(pageRaw);
         const likes = this.getLikes(pageRaw);
         const type = this.getCategory(pageRaw);
