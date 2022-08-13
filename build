@@ -1,8 +1,6 @@
 #!/bin/bash
 npm install
 
-npm run test
-
 if [ $? != 0 ]
 then echo TESTS HAVE FAILED; exit $?
 fi
