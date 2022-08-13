@@ -5,7 +5,7 @@
   "main": "pagesify.js",
   "scripts": {
     "test": "jest",
-    "start": "node pagesify.js>>/home/backend/pagesify/logs/application.log"
+    "start": "node pagesify.js"
   },
   "repository": {
     "type": "git",
@@ -22,7 +22,7 @@
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "jquery": "^3.6.0",
-    "jsdom": "^20.0.0",
+    "jsdom": "^19.0.0",
     "knex": "^0.20.13",
     "mysql2": "^2.1.0",
     "shelljs": "^0.8.3"
