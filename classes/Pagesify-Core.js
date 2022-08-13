@@ -24,14 +24,13 @@ class PagesifyCore{
     }
     getCategory(html){
         const $ = this.getDom(html)
-        const category = $("#cover a > span").html()
+        const category = $("#cover a > span").text()
         return category;
     }
     getLikes(html){
         const $ = this.getDom(html)
         let likes = $("#pages_msite_body_contents td div").html()
         likes = likes.replace(",","").replace(" ","");
-        console.log({likes})
         return likes*1;
     }
     processId(id){

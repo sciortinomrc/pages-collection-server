@@ -21,7 +21,7 @@ test ( "I request vespucciakabaudo and the get the correct results ", async()=>{
 } )
 
 
-test ( "I request vespucciakabaudo and the get the correct results ", async()=>{
+test ( "I request diariopippofrank and the get the correct results ", async()=>{
 
     sh.exec=jest.fn().mockReturnValue({stdout: diariopippofrank});
 
@@ -31,6 +31,6 @@ test ( "I request vespucciakabaudo and the get the correct results ", async()=>{
     console.log({name: pageInfo.name});
     expect(pageInfo.likes).toBe(16511);
     console.log({likes: pageInfo.likes});
-    expect(pageInfo.type).toEqual("Interest");
+    expect(pageInfo.type).toEqual("Automotive, Aircraft & Boat");
     console.log({type: pageInfo.type})
 } )
