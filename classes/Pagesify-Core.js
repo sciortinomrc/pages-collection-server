@@ -1,33 +1,37 @@
 const sh = require("shelljs");
+const {JSDOM} = require("jsdom");
+const jQuery = require("jquery")
 
 class PagesifyCore{
+
+    getDom(html) { 
+        const dom = new JSDOM(html, {})
+        const $ = jQuery(dom.window)
+        return $
+    }
+
     getPage(id){
         let html = sh.exec("curl https://m.facebook.com/"+id+"/community/",{silent: true}).stdout;
         return html;
     }
     getName(html){
-        let name = html.split("<title>")[1]
-            .split("</title>")[0]
+        const $ = this.getDom(html)
+        let name = $("title").text()
             .split("-")[0]
             .replace("&#039;","'")
             .trim();
         return name;
     }
     getCategory(html){
-        const category = html.split('id="cover"')[1]
-            .split("</h1>")[1]
-            .split("<span")[1]
-            .split("</span")[0]
-            .split(">")[1];
+        const $ = this.getDom(html)
+        const category = $("#cover a > span").html()
         return category;
     }
     getLikes(html){
-        let likes = html.split('id="pages_msite_body_contents"')[1]
-            .split("<td")[1]
-            .split("</td>")[0]
-            .split("</div>")[0]
-            .split(">")[2];
+        const $ = this.getDom(html)
+        let likes = $("#pages_msite_body_contents td div").html()
         likes = likes.replace(",","").replace(" ","");
+        console.log({likes})
         return likes*1;
     }
     processId(id){
